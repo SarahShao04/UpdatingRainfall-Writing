@@ -1,0 +1,246 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------------------
+%  PACKAGES
+% ---------------------------------------------------------------------
+\usepackage{fontawesome}   % \faEnvelopeO icon in author footnotes
+\usepackage{titling}       % \emptythanks (clears \thanks between title pages)
+\usepackage{bibunits}      % separate bibliographies for main text and supplement
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{natbib}        % \citet, \citep, \citeauthor, \citeyearpar
+\usepackage{url}
+\usepackage[breaklinks=true,bookmarksopen=true,colorlinks=true,citecolor=blue]{hyperref}
+
+\usepackage{graphicx}      % \includegraphics
+\usepackage{booktabs}      % \toprule, \midrule, \bottomrule
+\usepackage{caption}       % \captionsetup
+\usepackage{threeparttable}% tables with notes
+\usepackage{float}         % [H] placement
+\usepackage{setspace}      % \begin{spacing}{...}
+\usepackage{xcolor}
+
+% ---------------------------------------------------------------------
+%  BLINDING SWITCH
+%  1 = show title page with authors;  0 = blinded version (title only)
+% ---------------------------------------------------------------------
+\newcommand{\blind}{1}
+
+% ---------------------------------------------------------------------
+%  MARGINS (1 inch all around -- do not change)
+% ---------------------------------------------------------------------
+\addtolength{\oddsidemargin}{-.7in}%
+\addtolength{\evensidemargin}{-.7in}%
+\addtolength{\textwidth}{1.4in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+
+% ---------------------------------------------------------------------
+%  REUSABLE TITLE AND AUTHOR BLOCK
+%  Edit these once; they are used on the main and supplement title pages.
+% ---------------------------------------------------------------------
+\newcommand{\papertitle}{Paper Title}
+
+\newcommand{\paperauthors}{%
+    Author 1\thanks{Corresponding Author: Address 1. \faEnvelopeO: \href{mailto:author1@email.edu}{author1@email.edu}.} \and
+    Author 2\thanks{Address 2. \faEnvelopeO: \href{mailto:author2@email.edu}{author2@email.edu}.} \and
+    Author 3\thanks{Address 3. \faEnvelopeO: \href{mailto:author3@email.edu}{author3@email.edu}.} \and
+    Author 4\thanks{Address 4. \faEnvelopeO: \href{mailto:author4@email.edu}{author4@email.edu}.}%
+}
+
+% =====================================================================
+\begin{document}
+\begin{bibunit}[jpe]
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+% ---------------------------------------------------------------------
+%  TITLE PAGE
+% ---------------------------------------------------------------------
+\if1\blind
+{
+\title{\papertitle\thanks{Acknowledgments go here. Thank seminar participants, funding sources, and research assistants. State where replication data and code are available. All errors are our own.}}
+\author{\paperauthors}
+\maketitle
+} \fi
+
+\if0\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf \papertitle}
+  \end{center}
+  \medskip
+} \fi
+
+\bigskip
+\begin{abstract}
+\noindent Replace this text with the abstract. State the question, the data, the method, and the main finding in roughly 150--250 words. Cite as needed, e.g.\ \citet{entry1} or \citep{entry2}.
+\end{abstract}
+
+\noindent%
+{\it Keywords:} Keyword 1; Keyword 2; Keyword 3.
+\\
+\noindent%
+{\it JEL code:} C01, C13, J24.
+
+\vfill
+
+\newpage
+
+% ---------------------------------------------------------------------
+%  MAIN TEXT
+% ---------------------------------------------------------------------
+\spacingset{1.56} % DON'T change the spacing!
+
+\section{Introduction}\label{sec:intro}
+Motivate the question and summarize the contribution. Reference related work with natbib, for example \citet{entry1} in text, or in parentheses \citep{entry2, entry3}. Point the reader forward with cross-references such as Section~\ref{sec:data} and Section~\ref{sec:results}.
+
+\section{Background}\label{sec:background}
+Describe the institutional setting or the literature this paper builds on. Display equations are numbered:
+\begin{equation}
+    y_i = \alpha + \beta x_i + \varepsilon_i, \qquad i = 1, \ldots, n.
+    \label{eq:linear}
+\end{equation}
+Equation~\eqref{eq:linear} can then be referenced in the text.
+
+\href{}{}\section{Data}\label{sec:data}
+Describe the data sources, the sample, and the key variables. Table~\ref{tab:summary} is a template for a summary-statistics table with notes.
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Summary Statistics}
+\label{tab:summary}
+\begin{tabular}{lcccc}
+\toprule
+Variable & Mean & Std.\ Dev. & Min & Max \\
+\midrule
+Variable 1 & 0.00 & 0.00 & 0.00 & 0.00 \\
+Variable 2 & 0.00 & 0.00 & 0.00 & 0.00 \\
+Variable 3 & 0.00 & 0.00 & 0.00 & 0.00 \\
+\midrule
+Observations & \multicolumn{4}{c}{0} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Describe the sample and the source of each variable here.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Empirical Methodology}\label{sec:methodology}
+Lay out the estimation strategy and identification argument. Multi-line derivations can use the \texttt{align} environment:
+\begin{align}
+    \mathbb{E}[y_i \mid x_i] &= g(x_i^{\prime}\beta), \label{eq:cef} \\
+    \hat{\beta} &= \arg\max_{\beta} \sum_{i=1}^{n} \ell_i(\beta). \label{eq:mle}
+\end{align}
+
+\section{Results}\label{sec:results}
+Report and interpret the estimates. Figure~\ref{fig:example} shows how to include a graphic; replace the placeholder box with \verb|\includegraphics[width=0.8\textwidth]{figures/filename.pdf}|.
+
+\begin{figure}[H]
+\centering
+\fbox{\parbox[c][5cm][c]{0.8\textwidth}{\centering Figure placeholder}}
+\caption{Example Figure}
+\label{fig:example}
+\begin{minipage}{0.9\textwidth}
+\footnotesize \textit{Notes:} Describe what is plotted and the data source.
+\end{minipage}
+\end{figure}
+
+\section{Discussion and Conclusion}\label{sec:conclusion}
+Summarize the findings, discuss limitations, and suggest directions for future work. Additional material is collected in \ref{Appendix_A} and \ref{Appendix_B} of the Supplemental Materials.
+
+\putbib[refs]
+\end{bibunit}
+
+% =====================================================================
+%  SUPPLEMENTAL MATERIALS
+%  Delete everything from here to \end{document} if not needed.
+% =====================================================================
+\emptythanks
+\clearpage
+\setcounter{page}{1}
+
+\if1\blind
+{
+  \title{\papertitle\\ -- Supplemental Materials --}
+  \author{\paperauthors}
+  \maketitle
+} \fi
+
+\if0\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \title{\bf \papertitle\\ -- Supplemental Materials --}
+  \maketitle
+  \medskip
+} \fi
+
+% ---------------------------------------------------------------------
+%  APPENDIX SETTINGS
+% ---------------------------------------------------------------------
+\setcounter{section}{0}
+\appendix
+
+% Section titles read "Appendix A", "Appendix B", ...
+\renewcommand\thesection{Appendix \Alph{section}}
+
+% Tables and figures numbered A-1, A-2, B-1, ... and reset in each appendix
+\renewcommand{\thetable}{\Alph{section}-\arabic{table}}
+\renewcommand{\thefigure}{\Alph{section}-\arabic{figure}}
+\makeatletter
+\@addtoreset{table}{section}
+\@addtoreset{figure}{section}
+\makeatother
+
+% ---------------------------------------------------------------------
+%  APPENDIX CONTENT
+% ---------------------------------------------------------------------
+\begin{bibunit}[jpe]
+\begin{spacing}{1.45}
+
+\noindent This is the supplementary material for Author 1, Author 2, Author 3 and Author 4 (``\papertitle,'' \the\year). Briefly describe what each appendix contains. \ref{Appendix_A} collects additional tables; \ref{Appendix_B} collects proofs and derivations.
+
+\section{Additional Tables\label{Appendix_A}}
+Appendix tables are numbered automatically as Table~\ref{tab:appA1}.
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Robustness Checks}
+\label{tab:appA1}
+\begin{tabular}{lcc}
+\toprule
+ & (1) & (2) \\
+\midrule
+Coefficient 1 & 0.000 & 0.000 \\
+              & (0.000) & (0.000) \\
+Coefficient 2 & 0.000 & 0.000 \\
+              & (0.000) & (0.000) \\
+\midrule
+Observations & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Standard errors in parentheses. See \citet{entry4} for the estimator.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\section{Proofs and Derivations\label{Appendix_B}}
+Collect proofs here. Equations in the appendix continue the numbering of the main text unless you redefine \verb|\theequation|.
+
+\putbib[refs]
+\end{spacing}
+\end{bibunit}
+
+\end{document}
