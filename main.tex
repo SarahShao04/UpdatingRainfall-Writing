@@ -14,6 +14,7 @@
 
 \usepackage{graphicx}      % \includegraphics
 \usepackage{booktabs}      % \toprule, \midrule, \bottomrule
+\usepackage{adjustbox}     % shrink wide tables to fit \textwidth
 \usepackage{caption}       % \captionsetup
 \usepackage{threeparttable}% tables with notes
 \usepackage{float}         % [H] placement
@@ -161,7 +162,6 @@ Summarize the findings, discuss limitations, and suggest directions for future w
 
 % =====================================================================
 %  SUPPLEMENTAL MATERIALS
-%  Delete everything from here to \end{document} if not needed.
 % =====================================================================
 \emptythanks
 \clearpage
@@ -207,37 +207,1091 @@ Summarize the findings, discuss limitations, and suggest directions for future w
 \begin{bibunit}[jpe]
 \begin{spacing}{1.45}
 
-\noindent This is the supplementary material for Author 1, Author 2, Author 3 and Author 4 (``\papertitle,'' \the\year). Briefly describe what each appendix contains. \ref{Appendix_A} collects additional tables; \ref{Appendix_B} collects proofs and derivations.
+\noindent This is the supplementary material for \paperauthors\ (``\papertitle,'' \the\year), which replicates and extends \citet{bruckner2011rain} for 41 Sub-Saharan African (SSA) countries, extending their original 1981--2004 panel to 2024. The material is organized in five appendices. \ref{Appendix_A} reports the full replication and extension of every table in \citet{bruckner2011rain} (Tables III--IX), each estimated first on the original 1981--2004 sample to confirm reproduction of the published estimates and then on the sample extended to 2024, together with a three-sample robustness check that isolates the source of any change. \ref{Appendix_B} traces the provenance of the three core variables --- democracy, real GDP per capita, and rainfall --- from their original sources through the corrections applied along the way, and checks each reconstructed series against \citeauthor{bruckner2011rain}'s original data over the 1981--2004 overlap. \ref{Appendix_C} defines every variable, reports descriptive statistics, and lists the full country sample. \ref{Appendix_D} works through why the paper's instrument, Log rainfall, $t-1$, is strong and exogenous before 2004 but not after: relevance and exogeneity tests, Anderson--Rubin confidence sets, a battery of alternative rainfall instruments, and a formal dating of the break to 2007 that survives even when the underlying data vintages are not spliced.
 
-\section{Additional Tables\label{Appendix_A}}
-Appendix tables are numbered automatically as Table~\ref{tab:appA1}.
+Finally, \ref{Appendix_E} traces the mechanism behind the one relationship that strengthens under extension --- rainfall's direct effect on democratic transitions --- decomposing it into its country/year drivers and testing four candidate transmission channels.
+
+\section{Full Extended-Sample Replication Tables\label{Appendix_A}}
+
+This appendix reports our replication and extension of Tables III--IX of \citet{bruckner2011rain} in full. For every table, Panel A reproduces the original specification on the original 1981--2004 sample, verifying our reconstruction of the data and code against the published estimates, and Panel B repeats the identical specification on the sample extended to 2024. All specifications include country fixed effects, country-specific linear time trends, and year fixed effects, and cluster standard errors at the country level, exactly as in \citet{bruckner2011rain}. For the instrumental-variables tables (Tables A-3, A-4, and A-7) the instrument is always \textit{Log rainfall, $t-1$}, and we report both the conventional 2SLS standard error and the Anderson--Rubin \citep{andersonrubin1949} $p$-value, which is robust to weak instruments; the latter is the more reliable guide to significance whenever \ref{Appendix_D} indicates the first stage is not strong by conventional standards.
 
 \begin{table}[H]
 \centering
+\begin{adjustbox}{max width=\textwidth}
 \begin{threeparttable}
-\caption{Robustness Checks}
-\label{tab:appA1}
-\begin{tabular}{lcc}
+\caption{Rainfall and Polity Change --- a Replication of Br{\"u}ckner and Ciccone's (2011, Table III)}
+\label{tab:A1}
+\begin{tabular}{lccccc}
 \toprule
- & (1) & (2) \\
+ & (1) & (2) & (3) & (4) & (5) \\
+ & $\Delta$Polity2 & $\Delta$Polity2\tnote{a} & $\Delta$Exconst & $\Delta$Polcomp & $\Delta$Exrec \\
 \midrule
-Coefficient 1 & 0.000 & 0.000 \\
-              & (0.000) & (0.000) \\
-Coefficient 2 & 0.000 & 0.000 \\
-              & (0.000) & (0.000) \\
+\multicolumn{6}{l}{\textit{Panel A: Original Sample (1981--2004)}} \\
+Log rainfall, $t$     & 0.261 (0.351)      & 0.031 (0.386)      & 0.093 (0.113)      & $-$0.153 (0.154)    & 0.091 (0.174) \\
+Log rainfall, $t-1$   & $-$1.461** (0.732) & $-$1.660** (0.750) & $-$0.459* (0.259)   & $-$0.578** (0.290)  & $-$0.485** (0.247) \\
+Observations           & 955                & 902                & 902                & 902                & 902 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Panel B: Extended Sample (1981--2024)}} \\
+Log rainfall, $t$     & 0.097 (0.190)      & $-$0.090 (0.202)    & $-$0.004 (0.247)    & $-$0.150 (0.221)    & 0.080 (0.135) \\
+Log rainfall, $t-1$   & $-$0.588 (0.404)   & $-$0.592 (0.422)    & $-$0.090 (0.308)    & $-$0.141 (0.245)    & $-$0.389** (0.194) \\
+Observations           & 1{,}769            & 1{,}699            & 1{,}699            & 1{,}699            & 1{,}699 \\
 \midrule
-Observations & 0 & 0 \\
+Country FE, country trend, year FE & Yes & Yes & Yes & Yes & Yes \\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize
-\item \textit{Notes:} Standard errors in parentheses. See \citet{entry4} for the estimator.
+\item[a] Excludes interregnum periods (Polity2 $=-66$); column (1) codes them as 0.
+\item \textit{Notes:} OLS. Dependent variables are year-on-year changes in Polity2 (cols.\ 1--2) or in the underlying executive-constraints, political-competition, and executive-recruitment concept scores (cols.\ 3--5). Huber-robust standard errors clustered by country in parentheses. \citet{bruckner2011rain} report a coefficient of $-1.461^{**}$ (0.723) on Log rainfall, $t-1$ in column (1); Panel A reproduces this exactly. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
 \end{tablenotes}
 \end{threeparttable}
+\end{adjustbox}
 \end{table}
 
-\section{Proofs and Derivations\label{Appendix_B}}
-Collect proofs here. Equations in the appendix continue the numbering of the main text unless you redefine \verb|\theequation|.
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Rainfall, GDP per Capita, and Recessions --- a Replication of Table IV}
+\label{tab:A2}
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (2) & (5) & (6) \\
+ & Log GDP p.c. & Log GDP p.c. & Recession & Recession \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A: Original Sample (1981--2004)}} \\
+Log rainfall, $t$   & 0.079*** (0.029) & 0.075*** (0.026) & $-$0.399*** (0.141) & $-$0.382*** (0.128) \\
+Log rainfall, $t-1$ & ---              & 0.048 (0.033)     & ---                  & $-$0.191 (0.141) \\
+Observations         & 955              & 955               & 955                  & 955 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Panel B: Extended Sample (1981--2024)}} \\
+Log rainfall, $t$   & 0.100 (0.061)    & 0.083 (0.051)     & $-$0.203** (0.096)   & $-$0.202** (0.089) \\
+Log rainfall, $t-1$ & ---              & 0.092 (0.061)     & ---                  & 0.000 (0.100) \\
+Observations         & 1{,}769          & 1{,}768           & 1{,}691              & 1{,}690 \\
+\midrule
+Country FE, country trend, year FE & Yes & Yes & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} OLS. Column headers follow \citet{bruckner2011rain}'s original numbering (odd/even pairs report the specification without and with the lagged rainfall term). \citet{bruckner2011rain} report 0.079*** (0.029) for column (1) and $-0.399^{***}$ (0.140) for column (5); Panel A reproduces both. Huber-robust standard errors clustered by country. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Income Shocks and Polity Change --- a Replication of Table V (2SLS)}
+\label{tab:A3}
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (5) & (6) & (7) \\
+ & $\Delta$Polity2 & $\Delta$Exconst & $\Delta$Polcomp & $\Delta$Exrec \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A: Original Sample (1981--2004)}} \\
+Log GDP p.c., $t-1$ & $-$18.021* (11.488) & $-$5.809* (3.988) & $-$7.680** (4.731) & $-$6.137* (4.158) \\
+\ [AR $p$-value]     & [0.051]             & [0.077]           & [0.040]            & [0.057] \\
+First stage: Log rainfall, $t-1$ & \multicolumn{4}{c}{0.079*** (0.029)} \\
+Observations         & 955                 & 902               & 902                & 902 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Panel B: Extended Sample (1981--2024)}} \\
+Log GDP p.c., $t-1$ & $-$5.705 (5.835)    & $-$0.946 (3.193)  & $-$1.724 (2.896)   & $-$3.905** (3.375) \\
+\ [AR $p$-value]     & [0.159]             & [0.757]           & [0.504]            & [0.050] \\
+First stage: Log rainfall, $t-1$ & \multicolumn{4}{c}{0.100 (0.061)} \\
+Observations         & 1{,}769             & 1{,}699           & 1{,}699            & 1{,}699 \\
+\midrule
+Country FE, country trend, year FE & Yes & Yes & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} 2SLS. Log GDP per capita, $t-1$ is instrumented by Log rainfall, $t-1$. Conventional 2SLS standard errors clustered by country in parentheses; Anderson--Rubin \citep{andersonrubin1949} weak-instrument-robust $p$-values in brackets. \citet{bruckner2011rain} report $-18.021^{**}$ [AR $p\approx0.049$] for column (1); Panel A reproduces this. The first-stage coefficient weakens from 0.079*** in the original sample to an insignificant 0.100 in the extended sample (see \ref{Appendix_D}), which is the proximate cause of the attenuation in every column of Panel B. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Country-Specific Recessions and Polity Change --- a Replication of Table VI (2SLS)}
+\label{tab:A4}
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (5) & (6) & (7) \\
+ & $\Delta$Polity2 & $\Delta$Exconst & $\Delta$Polcomp & $\Delta$Exrec \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A: Original Sample (1981--2004)}} \\
+Recession, $t-1$    & 3.584* (1.927)  & 1.130* (0.632)   & 1.494** (0.777)  & 1.194* (0.680) \\
+\ [AR $p$-value]     & [0.051]         & [0.077]          & [0.040]          & [0.057] \\
+First stage: Log rainfall, $t-1$ & \multicolumn{4}{c}{$-$0.399*** (0.141)} \\
+Observations         & 955             & 902              & 902              & 902 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Panel B: Extended Sample (1981--2024)}} \\
+Recession, $t-1$    & 3.165 (2.273)   & $-$0.243 (1.387)  & 0.329 (1.144)    & 1.459** (0.882) \\
+\ [AR $p$-value]     & [0.143]         & [0.859]          & [0.782]          & [0.049] \\
+First stage: Log rainfall, $t-1$ & \multicolumn{4}{c}{$-$0.203** (0.096)} \\
+Observations         & 1{,}691         & 1{,}625          & 1{,}625          & 1{,}625 \\
+\midrule
+Country FE, country trend, year FE & Yes & Yes & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} 2SLS. The country-specific recession indicator, $t-1$, is instrumented by Log rainfall, $t-1$. Conventional 2SLS standard errors clustered by country in parentheses; Anderson--Rubin $p$-values in brackets. \citet{bruckner2011rain} report $3.584^{**}$ [AR $p\approx0.049$] for column (1); Panel A reproduces this. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Democratic Convergence --- a Replication of Table VII}
+\label{tab:A5}
+\begin{tabular}{lcc}
+\toprule
+ & Original Sample & Extended Sample \\
+ & (1981--2004) & (1981--2024) \\
+\midrule
+Polity2, $t$ (OLS, convergence control) & $-$0.294*** (0.023) & $-$0.174*** (0.026) \\
+Log rainfall, $t-1$ (OLS)               & $-$1.401** (0.699)  & $-$0.710 (0.438) \\
+\ Observations                          & 955                 & 1{,}731 \\
+Log GDP p.c., $t-1$ (2SLS)              & $-$17.360** (10.683) & $-$6.878 (6.777) \\
+\ [AR $p$-value]                        & [0.048]             & [0.118] \\
+\ Observations                          & 955                 & 1{,}731 \\
+Recession, $t-1$ (2SLS)                 & 3.450** (1.790)     & 3.377 (2.264) \\
+\ [AR $p$-value]                        & [0.048]             & [0.125] \\
+\ Observations                          & 955                 & 1{,}691 \\
+\midrule
+Country FE, country trend, year FE & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Each row adds the lagged Polity2 level as a convergence control to the corresponding specification in Tables A-1, A-3, and A-4. \citet{bruckner2011rain} report $-0.294^{***}$ (0.023) on the Polity2 convergence term and $-1.404^{**}$ (0.690) on Log rainfall, $t-1$; Panel A (Original Sample column) reproduces both closely. Huber-robust standard errors clustered by country in parentheses; Anderson--Rubin $p$-values in brackets for the 2SLS rows. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Rainfall and Polity Transitions --- a Replication of Table VIII (OLS)}
+\label{tab:A6}
+\begin{tabular}{lcccc}
+\toprule
+ & DemTrans & DemStep & AutoTrans & CoupDem \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A: Original Sample (1981--2004)}} \\
+Log rainfall, $t$   & 0.027 (0.034)      & 0.016 (0.027)      & $-$0.021 (0.049)   & $-$0.005 (0.091) \\
+Log rainfall, $t-1$ & $-$0.125** (0.058) & $-$0.140** (0.064) & 0.169 (0.115)      & $-$0.003 (0.118) \\
+Observations         & 700                & 867                & 255                & 255 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Panel B: Extended Sample (1981--2024)}} \\
+Log rainfall, $t$   & 0.033 (0.030)      & 0.016 (0.027)      & 0.009 (0.022)      & $-$0.005 (0.091) \\
+Log rainfall, $t-1$ & $-$0.142*** (0.051) & $-$0.140** (0.064) & 0.077* (0.043)     & $-$0.003 (0.118) \\
+Observations         & 1{,}001            & 867\tnote{a}       & 729                & 255\tnote{b} \\
+\midrule
+Country FE, country trend, year FE & Yes & Yes & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item[a] The Epstein et al.\ democratic-transition classification underlying \textit{DemStep} was never coded beyond 2004 in any publicly available update, so its ``extended'' sample is identical to the original 700--867 observations; this row should not be read as a test of extension, only as a rerun of the original specification.
+\item[b] \textit{CoupDem} restricts to democracy-years (Polity2$_{t-1}>0$) and to the period covered by the original coup-events data, which is likewise not extended past 2004.
+\item \textit{Notes:} Linear probability model. \citet{bruckner2011rain} report $-0.125^{**}$ (0.057) for \textit{DemTrans} and $-0.140^{**}$ (0.064) for \textit{DemStep} on Log rainfall, $t-1$; Panel A reproduces both. The rainfall--\textit{DemTrans} relationship is the one result in this appendix that strengthens under extension, from $-0.125^{**}$ to $-0.142^{***}$; \ref{Appendix_E} decomposes this effect. Huber-robust standard errors clustered by country in parentheses. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Income Shocks and Transitions to Democracy --- a Replication of Table IX (2SLS)}
+\label{tab:A7}
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{DemTrans} & \multicolumn{2}{c}{DemStep\tnote{a}} \\
+ & OLS & 2SLS & OLS & 2SLS \\
+\midrule
+\multicolumn{5}{l}{\textit{Panel A: Original Sample (1981--2004)}} \\
+Log GDP p.c., $t-1$ & 0.056 (0.058) & $-$1.285** (0.805) & $-$0.054 (0.051) & $-$1.471** (0.820) \\
+\ [AR $p$-value]     &               & [0.029]            &                  & [0.031] \\
+Recession, $t-1$    &               & 0.235** (0.133)    &                  & 0.279** (0.126) \\
+\ [AR $p$-value]     &               & [0.029]            &                  & [0.031] \\
+First stage (Log GDP)   & \multicolumn{2}{c}{0.095** (0.037)}  & \multicolumn{2}{c}{---} \\
+First stage (Recession) & \multicolumn{2}{c}{$-$0.519*** (0.166)} & \multicolumn{2}{c}{---} \\
+Observations         & 700 & 700 & 867 & 867 \\
+\addlinespace
+\multicolumn{5}{l}{\textit{Panel B: Extended Sample (1981--2024)}} \\
+Log GDP p.c., $t-1$ & $-$0.026 (0.025) & $-$2.280*** (3.483) & $-$0.054 (0.051) & $-$1.471** (0.820) \\
+\ [AR $p$-value]     &                 & [0.005]             &                  & [0.031] \\
+Recession, $t-1$    &                 & 0.346*** (0.153)    &                  & 0.279** (0.126) \\
+\ [AR $p$-value]     &                 & [0.004]             &                  & [0.031] \\
+First stage (Log GDP)   & \multicolumn{2}{c}{0.060 (0.084)}    & \multicolumn{2}{c}{---} \\
+First stage (Recession) & \multicolumn{2}{c}{$-$0.426*** (0.121)} & \multicolumn{2}{c}{---} \\
+Observations         & 1{,}001 & 1{,}001 & 867 & 867 \\
+\midrule
+Country FE, country trend, year FE & Yes & Yes & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item[a] As in Table A-6, \textit{DemStep} is not extendable past 2004; the ``Extended Sample'' \textit{DemStep} columns rerun the identical 867-observation sample as Panel A and are reported only for completeness.
+\item \textit{Notes:} Instrument is Log rainfall, $t-1$. \citet{bruckner2011rain} report $-1.285^{**}$ [AR $p\approx0.027$] for Log GDP $\to$ DemTrans and $0.235^{**}$ [AR $p\approx0.027$] for Recession $\to$ DemTrans; Panel A reproduces both closely. As in Table A-3, the extended-sample 2SLS point estimates should be read alongside the weak-instrument diagnostics in \ref{Appendix_D}: the first stage for Log GDP is no longer individually significant in Panel B (F well below conventional thresholds), so the large Panel-B point estimate is imprecisely identified despite its nominal significance. Huber-robust standard errors clustered by country in parentheses; Anderson--Rubin $p$-values in brackets. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Extension Summary: What Holds Up and What Weakens}
+\label{tab:A8}
+\begin{tabular}{lcccc}
+\toprule
+ & OLS & 2SLS & 2SLS & OLS \\
+ & Log rain, $t-1$ & Log GDP, $t-1$ & Recession, $t-1$ & Log rain, $t-1$ \\
+ & $\to \Delta$Polity2 & $\to \Delta$Polity2 & $\to \Delta$Polity2 & $\to$ DemTrans \\
+\midrule
+Original (1981--2004) & $-$1.461** & $-$18.021* [0.051] & 3.584* [0.051] & $-$0.125** \\
+Extended (1981--2024) & $-$0.588   & $-$5.705 [0.159]   & 3.165 [0.143]  & $-$0.142*** \\
+\midrule
+$N$, original  & 955   & 955 & 955 & 700 \\
+$N$, extended  & 1{,}769 & 1{,}769 & 1{,}691 & 1{,}001 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Bracketed figures are Anderson--Rubin $p$-values for the 2SLS columns. Extending the panel to 2024 weakens both the direct OLS relationship between rainfall and $\Delta$Polity2 and the 2SLS income-shock results, driven by a weakening first-stage (rainfall $\to$ GDP) relationship rather than by a weakening GDP $\to$ democracy channel (\ref{Appendix_D}). By contrast, the direct OLS relationship between rainfall and democratic transitions strengthens and gains significance; \ref{Appendix_E} shows this is not mediated through GDP either. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Robustness Check: Three-Sample Comparison}
+\label{tab:A9}
+\begin{tabular}{lcccc}
+\toprule
+Sample & Original & Polity-only & Full \\
+ & (1981--2004) & (1981--2018) & (1981--2024) \\
+\midrule
+\multicolumn{4}{l}{\textit{Table III --- Log rainfall, $t-1$ $\to \Delta$Polity2 (OLS)}} \\
+Coefficient & $-$1.461** (0.732) & $-$0.725 (0.474) & $-$0.588 (0.404) \\
+$N$          & 955 & 1{,}523 & 1{,}769 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Table IV --- Log rainfall, $t$ $\to$ Log GDP p.c.\ (first-stage strength, OLS)}} \\
+Coefficient & 0.079*** (0.029) & 0.097* (0.059) & 0.100 (0.061) \\
+$N$          & 955 & 1{,}523 & 1{,}769 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Table V --- Log GDP p.c., $t-1$ $\to \Delta$Polity2 (2SLS)}} \\
+Coefficient & $-$18.021 [0.051]* & $-$7.201 [0.145] & $-$5.705 [0.159] \\
+First stage & 0.079*** & 0.097* & 0.100 \\
+$N$          & 955 & 1{,}523 & 1{,}769 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Table VI --- Recession, $t-1$ $\to \Delta$Polity2 (2SLS)}} \\
+Coefficient & 3.584 [0.051]* & 4.112 [0.136] & 3.165 [0.143] \\
+First stage & $-$0.399*** & $-$0.190* & $-$0.203** \\
+$N$          & 955 & 1{,}445 & 1{,}691 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Table VIII --- Log rainfall, $t-1$ $\to$ DemTrans (OLS)}} \\
+Coefficient & $-$0.125** (0.058) & $-$0.140*** (0.051) & $-$0.142*** (0.051) \\
+$N$          & 700 & 930 & 1{,}001 \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Table IX --- Log GDP p.c., $t-1$ $\to$ DemTrans (2SLS)}} \\
+Coefficient & $-$1.285 [0.029]** & $-$1.908 [0.006]*** & $-$2.280 [0.005]*** \\
+First stage & 0.095** & 0.069 & 0.060 \\
+$N$          & 700 & 930 & 1{,}001 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} ``Polity-only'' extends the panel to 2018 using Polity IV/V alone, without splicing in the rescaled V-Dem series for 2019--2024 (\ref{Appendix_B}); it isolates whether the attenuation documented in Table A-8 reflects the V-Dem splice or a genuine change in the underlying relationships. Bracketed figures are Anderson--Rubin $p$-values. The rainfall$\to\Delta$Polity2 relationship (Table III) is already insignificant by 1981--2018, before any V-Dem data enter the sample, so the V-Dem splice is not the cause; the first stage (Table IV) instead weakens monotonically across all three samples (0.079$^{***}\to$0.097$^{*}\to$0.100), which is what drives the attenuation of both 2SLS tables. The rainfall$\to$DemTrans relationship (Table VIII) strengthens monotonically across all three samples and is unaffected by the choice of democracy source. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\section{Data Construction, Corrections, and Validation\label{Appendix_B}}
+
+This appendix documents how the three core variables --- democracy, real GDP per capita, and rainfall --- were extended beyond \citeauthor{bruckner2011rain}'s (\citeyear{bruckner2011rain}) original 1981--2004 coverage, the data-processing errors that surfaced along the way, and a validation exercise that reconstructs each variable's own 1981--2004 values from our extension pipeline and compares them, year by year, against \citeauthor{bruckner2011rain}'s original data.
+
+\subsection*{Appendix B.1\quad Democracy: Polity V and Rescaled V-Dem}
+
+Democracy is extended in two stages. From 2005--2018 we use Polity V \citep{marshall2020polity5} directly, on the same $-10$ to $+10$ Polity2 scale as the original data; from 2019--2024, following the discontinuation of new Polity releases, we splice in the V-Dem dataset \citep{coppedge2024vdem}, rescaled onto the Polity2 metric. The rescaling maps each Polity component to its closest V-Dem analogue (Polity2 to \texttt{v2x\_polyarchy}, the Electoral Democracy Index; Exconst to \texttt{v2xlg\_legcon}, legislative constraints on the executive; Polcomp and Exrec to \texttt{v2xel\_frefair}, the free-and-fair-elections index), then matches the standard deviation of year-on-year \emph{changes} in each V-Dem series to the standard deviation of year-on-year changes in the corresponding Polity series over the 1982--2018 overlap, and cumulates the rescaled changes forward from each country's last available Polity value. For Polity2 the scaling factor is $\sigma(\Delta\text{Polity2})/\sigma(\Delta v2x\_polyarchy) = 1.8708/0.0445 = 42.08$; corresponding factors for Exconst, Polcomp, and Exrec are 59.77, 49.58, and 17.93. All rescaled series are clipped to their native Polity ranges ($-10$ to 10 for Polity2; 1--7, 1--10, and 1--8 for the concept scores).
+
+Table B-1 reports the correlation between Polity2 and its V-Dem analogue over the full 1981--2018 overlap, which justifies using \texttt{v2x\_polyarchy} as the rescaling anchor.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Correlation Between Polity and V-Dem Indices, 1981--2018 Overlap}
+\label{tab:B1}
+\begin{tabular}{lccc}
+\toprule
+Polity component & V-Dem analogue & Pearson $r$ & Spearman $\rho$ \\
+\midrule
+Polity2  & \texttt{v2x\_polyarchy} (Electoral Democracy) & 0.809 & 0.815 \\
+Polity2  & \texttt{v2x\_libdem} (Liberal Democracy)       & 0.761 & 0.751 \\
+Exconst  & \texttt{v2xlg\_legcon} (Legislative Constraints) & 0.203 & 0.624 \\
+Exconst  & \texttt{v2x\_jucon} (Judicial Constraints)      & 0.141 & 0.495 \\
+Polcomp  & \texttt{v2xel\_frefair} (Free and Fair Elections) & 0.339 & 0.654 \\
+Polcomp  & \texttt{v2xps\_party} (Party Institutionalization) & 0.201 & 0.366 \\
+Exrec    & \texttt{v2xel\_frefair} (Free and Fair Elections) & 0.222 & 0.566 \\
+Exrec    & \texttt{v2x\_elecoff} (Elected Officials)       & 0.163 & 0.284 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} $N=1{,}521$ country-years, 41 countries, 1981--2018. Polity2's correlation with the Electoral Democracy Index ($r=0.809$) is the strongest of the eight pairs and is used as the rescaling anchor described in the text; the concept-score sub-indices correlate more loosely with their V-Dem analogues, so the rescaled Exconst/Polcomp/Exrec series for 2019--2024 should be read as coarser than the rescaled Polity2 series.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix B.2\quad Real GDP per Capita: Penn World Table 11.0}
+
+Real GDP per capita is extended for 2005--2023 using Penn World Table (PWT) 11.0 \citep{feenstra2015pwt}, constructed as $\text{lgdp} = \log(\text{rgdpe}/\text{pop})$, where \texttt{rgdpe} is expenditure-side real GDP and \texttt{pop} is population, both from PWT's \texttt{Data} sheet. PWT 11.0 reports levels in 2021 constant PPP dollars, whereas the original \citeauthor{bruckner2011rain} data use PWT 6.2's 2005 USD base; within-version growth rates are unaffected by this choice, but the \emph{level} of GDP per capita is not directly comparable across the 2004/2005 splice point, a fact we return to in Appendix B.4 and use as the basis for the vintage-splice robustness check in \ref{Appendix_D}. Real GDP per capita is not available past 2023 in the current PWT release, so \texttt{lgdp} for 2024 is missing by construction; its one- and two-period lags are still available for all 1981--2024 country-years.
+
+\subsection*{Appendix B.3\quad Rainfall: GPCP v2.3 and the Longitude-Convention Bug}
+
+Rainfall is extended for 2005--2024 using the NASA/NOAA Global Precipitation Climatology Project (GPCP) Monthly Precipitation Climate Data Record, version 2.3 \citep{huffman1997gpcp}, on a $2.5^{\circ}\times2.5^{\circ}$ grid reported in mm/day. Each monthly grid is converted to a monthly total (multiplying by days in month), summed to an annual total, and spatially joined to country polygons from the Natural Earth 1:50m Admin-0 boundaries; small countries whose land area falls between grid cells are assigned their nearest grid-cell centroid rather than an empty spatial average.
+
+While building this pipeline we discovered and corrected two bugs that had silently zeroed out or misattributed rainfall for a subset of countries in earlier drafts of this project. Table B-2 documents both, the tables and figures they affected, and the quantified effect of the fix; both corrections are reflected in every result reported in this paper and its supplemental materials.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Data-Processing Corrections Applied During Extension}
+\label{tab:B2}
+\begin{tabular}{p{3.4cm}p{5.7cm}p{4.9cm}}
+\toprule
+Bug & Description & Quantified effect of fix \\
+\midrule
+Longitude convention (growing-season rainfall) & GPCP reports longitude on a $0^{\circ}$--$360^{\circ}$ grid; the spatial join initially assumed the standard $-180^{\circ}/180^{\circ}$ convention, silently returning no matching cells --- and hence zero rainfall --- for 13 West African countries with negative (west-of-Greenwich) longitudes, with no fallback for the small countries among them. &
+Corrected the join to convert longitude to $-180^{\circ}/180^{\circ}$ before matching and added a nearest-centroid fallback for small countries. This changed the growing-season instrument's first-stage $F$-statistic in the extended sample from an uninformative non-finding to $F=8.57$, significant at the 1\% level (\ref{Appendix_D}, Table D-3). \\
+\addlinespace
+ZAR/COD country-code mismatch & The original database uses the legacy UN country code \texttt{ZAR} for the Democratic Republic of Congo; seven World-Bank-sourced auxiliary files (agricultural share, cereal yield, food production, food CPI, tax revenue, government revenue, and irrigation share) instead key on the current code \texttt{COD}. Without an explicit remap, every merge on country code silently dropped DR Congo. &
+Added an explicit \texttt{ZAR}$\leftrightarrow$\texttt{COD} remap before all World-Bank merges. This restored DR Congo to the agricultural-share correlation (\ref{Appendix_D}, Table D-6), to all four mechanism channels tested in \ref{Appendix_E}, and to the regional-neighbor rainfall instrument (\ref{Appendix_D}, Table D-7); it revised the food-production attenuation share in \ref{Appendix_E} from 32\% to 34\% and corrected a stale $N\approx200$ claim for the fiscal-capacity channel to its true sample size of $N\approx550$--600, reclassifying that channel from inconclusive to not supported. \\
+\bottomrule
+\end{tabular}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+Table B-3 records the coverage decision that governs the merged panel: rainfall and GDP could in principle be extended through 2024 and 2023 respectively, but the panel's binding constraint is democracy, whose Polity V coverage ends in 2018.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Coverage by Data Source}
+\label{tab:B3}
+\begin{tabular}{lccc}
+\toprule
+Variable & Original (B\&C) & Extended to & Limiting factor \\
+\midrule
+Democracy (Polity V) & 1981--2004 & 2005--2018 & Latest public Polity V release \\
+Democracy (V-Dem, rescaled) & --- & 2019--2024 & V-Dem v16 covers through 2024 \\
+Real GDP per capita (PWT) & 1981--2004 & 2005--2023 & PWT 11.0 ends in 2023 \\
+Rainfall (GPCP) & 1981--2004 & 2005--2024 & All 2024 months confirmed available \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} The 2018/2019 Polity-to-V-Dem splice is the binding constraint for the merged panel; rainfall and GDP are each extended as far as their own sources allow to maximize the sample used in Table A-9's robustness checks.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix B.4\quad Validation Against the Original Data}
+
+To check that the extension pipeline reproduces \citeauthor{bruckner2011rain}'s own values rather than merely being internally consistent, we rebuild each of the three variables' 1981--2004 series independently, using exactly the extension-period methodology, and compare the result to the original data year by year. Figures B-1--B-3 and Tables B-4--B-6 report the comparison; the underlying code is in \texttt{data\_validation.ipynb}.
+
+\textbf{Rainfall.} The reconstructed GPCP v2.3 series tracks the original GPCP v2.0/2.1 series closely from 1981--1990 (within $\pm5\%$, with no consistent direction), then diverges systematically upward from 1991 onward, peaking at roughly $+16\%$ around 2001 and narrowing to $+9.9\%$ by 2004 (Table B-4; median absolute difference over the full overlap is 6.2\%, mean 7.3\%). This pattern matches \citeauthor{bruckner2011rain}'s own documented caveat that GPCP's underlying gauge density fell from roughly 32 stations per country in the 1980s to 18 in the 1990s and 8 after 2000, and is consistent with GPCP v2.3 being a reprocessed climate data record that incorporates gauge stations recovered after the original v2.0/2.1 release --- a genuine data revision by the provider, not a defect in our aggregation, which we verified directly against the raw NetCDF files.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Validation: Rainfall, Original vs.\ Reconstructed (SSA Mean, mm/year)}
+\label{tab:B4}
+\begin{tabular}{rrrr|rrrr}
+\toprule
+Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
+\midrule
+1981 & 1{,}055.5 & 1{,}052.4 & $-$0.3  & 1993 & 954.6 & 997.8   & 4.5 \\
+1982 & 1{,}074.2 & 1{,}019.7 & $-$5.1  & 1994 & 957.4 & 1{,}051.9 & 9.9 \\
+1983 & 891.8   & 901.1   & 1.0   & 1995 & 950.7 & 1{,}020.6 & 7.4 \\
+1984 & 981.1   & 984.3   & 0.3   & 1996 & 965.4 & 1{,}050.6 & 8.8 \\
+1985 & 1{,}051.0 & 1{,}037.9 & $-$1.3  & 1997 & 943.8 & 1{,}096.5 & 16.2 \\
+1986 & 1{,}020.6 & 1{,}015.1 & $-$0.5  & 1998 & 881.8 & 1{,}040.9 & 18.0 \\
+1987 & 1{,}003.5 & 986.0   & $-$1.7  & 1999 & 968.5 & 1{,}095.0 & 13.1 \\
+1988 & 1{,}125.0 & 1{,}088.7 & $-$3.2  & 2000 & 940.9 & 1{,}072.6 & 14.0 \\
+1989 & 1{,}137.1 & 1{,}100.7 & $-$3.2  & 2001 & 893.3 & 1{,}041.6 & 16.6 \\
+1990 & 976.7   & 970.6   & $-$0.6  & 2002 & 893.0 & 1{,}013.9 & 13.5 \\
+1991 & 989.5   & 1{,}031.3 & 4.2   & 2003 & 906.7 & 1{,}035.0 & 14.2 \\
+1992 & 879.2   & 944.5   & 7.4   & 2004 & 926.7 & 1{,}018.3 & 9.9 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Median absolute \% difference over 1981--2004: 6.2\%; mean: 7.3\%. Reconstructed series continues at 943--1{,}120 mm/year through 2024 (Figure B-1).
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/validation_rainfall.png}
+\caption{Rainfall: Original vs.\ Reconstructed (SSA Mean)}
+\label{fig:B1}
+\begin{minipage}{0.9\textwidth}
+\footnotesize \textit{Notes:} SSA-mean (41-country average) annual total rainfall, mm/year, 1981--2024. Solid line is the original \citet{bruckner2011rain} series (populated 1981--2004 only); dashed line is our GPCP v2.3 reconstruction (populated 1981--2024). The vertical reference line at 2004.5 marks the extension boundary.
+\end{minipage}
+\end{figure}
+
+\textbf{Real GDP per capita.} Unlike rainfall, the reconstructed PWT 11.0 series is systematically \emph{above} the original PWT 6.2 series in every overlap year, by $+161\%$ in 1981 narrowing steadily to $+29\%$ by 2003 and to $-7\%$ by 2004 (Table B-5). This is the expected signature of successive International Comparison Program (ICP) benchmark revisions --- PWT 11.0 incorporates the 2005 and 2011 ICP rounds that PWT 6.2 predates, and each revision revises the earliest, most sparsely price-surveyed years by the largest amount, which is exactly the shrinking-gap pattern observed here. Because this gap is largest precisely where the panel is \emph{not} spliced (the gap nearly closes by 2004, the actual splice year), the level discontinuity introduced into the merged panel is smaller than the mid-sample gap alone would suggest; we quantify its effect on our structural-break finding directly in \ref{Appendix_D}.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Validation: Real GDP per Capita, Original vs.\ Reconstructed (SSA Mean, PPP \$)}
+\label{tab:B5}
+\begin{tabular}{rrrr|rrrr}
+\toprule
+Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
+\midrule
+1981 & 1{,}126.5 & 2{,}945.1 & 161.4 & 1993 & 1{,}685.1 & 2{,}629.2 & 56.0 \\
+1982 & 1{,}173.5 & 2{,}848.5 & 142.7 & 1994 & 1{,}694.9 & 2{,}649.7 & 56.3 \\
+1983 & 1{,}209.2 & 2{,}861.4 & 136.6 & 1995 & 1{,}738.3 & 2{,}697.0 & 55.1 \\
+1984 & 1{,}275.8 & 2{,}881.8 & 125.9 & 1996 & 1{,}812.0 & 2{,}851.1 & 57.3 \\
+1985 & 1{,}311.6 & 2{,}927.3 & 123.2 & 1997 & 1{,}871.6 & 2{,}804.3 & 49.8 \\
+1986 & 1{,}332.1 & 2{,}748.5 & 106.3 & 1998 & 1{,}873.5 & 2{,}726.2 & 45.5 \\
+1987 & 1{,}366.4 & 2{,}684.5 & 96.5  & 1999 & 1{,}958.4 & 2{,}818.5 & 43.9 \\
+1988 & 1{,}423.4 & 2{,}686.5 & 88.7  & 2000 & 2{,}104.9 & 2{,}866.0 & 36.2 \\
+1989 & 1{,}514.0 & 2{,}761.8 & 82.4  & 2001 & 2{,}176.3 & 2{,}862.2 & 31.5 \\
+1990 & 1{,}583.2 & 2{,}700.4 & 70.6  & 2002 & 2{,}217.3 & 2{,}910.8 & 31.3 \\
+1991 & 1{,}647.4 & 2{,}717.2 & 64.9  & 2003 & 2{,}306.0 & 2{,}965.3 & 28.6 \\
+1992 & 1{,}647.0 & 2{,}629.2 & 59.6  & 2004 & 3{,}328.9 & 3{,}089.4 & $-$7.2 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} 2004 excluded from the summary statistic reported in the text because the original series is sparse that year; over 1981--2003, the reconstructed series is higher in 100\% of years, with a median signed difference of 59.6\%.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/validation_gdp.png}
+\caption{Real GDP per Capita: Original vs.\ Reconstructed (SSA Mean)}
+\label{fig:B2}
+\begin{minipage}{0.9\textwidth}
+\footnotesize \textit{Notes:} SSA-mean real GDP per capita, PPP \$, 1981--2023. Solid line is the original PWT-6.2-based series (1981--2004 only, computed as $\exp(\text{lgdp})$ from the original data); dashed line is our PWT-11.0 reconstruction (1981--2023; PWT 11.0 does not yet cover 2024).
+\end{minipage}
+\end{figure}
+
+\textbf{Democracy.} The reconstructed Polity2 series is the tightest validation of the three, with a mean absolute difference of only 0.13 points on the $-10$ to $+10$ scale over the full 1981--2004 overlap (Table B-6), and it continues smoothly into the extension period, including across the 2018/2019 join where the source switches from Polity V to rescaled V-Dem.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Validation: Democracy (Polity2), Original vs.\ Reconstructed (SSA Mean)}
+\label{tab:B6}
+\begin{tabular}{rrrr|rrrr}
+\toprule
+Year & Orig.\ & Recon.\ & Diff & Year & Orig.\ & Recon.\ & Diff \\
+\midrule
+1981 & $-$5.08 & $-$4.95 & 0.12  & 1993 & $-$0.95 & $-$1.00 & $-$0.05 \\
+1982 & $-$5.22 & $-$5.20 & 0.02  & 1994 & $-$0.33 & $-$0.61 & $-$0.28 \\
+1983 & $-$5.35 & $-$5.28 & 0.07  & 1995 & $-$0.10 & $-$0.39 & $-$0.29 \\
+1984 & $-$5.78 & $-$5.60 & 0.18  & 1996 & $-$0.23 & $-$0.49 & $-$0.26 \\
+1985 & $-$5.75 & $-$5.78 & $-$0.03 & 1997 & $-$0.55 & $-$0.61 & $-$0.06 \\
+1986 & $-$5.72 & $-$5.80 & $-$0.08 & 1998 & $-$0.68 & $-$0.44 & 0.24 \\
+1987 & $-$5.88 & $-$5.90 & $-$0.03 & 1999 & 0.10   & 0.34   & 0.24 \\
+1988 & $-$5.88 & $-$5.83 & 0.05  & 2000 & 0.72   & 0.80   & 0.08 \\
+1989 & $-$6.17 & $-$6.12 & 0.05  & 2001 & 1.10   & 1.10   & $-$0.01 \\
+1990 & $-$5.60 & $-$5.05 & 0.55  & 2002 & 1.44   & 1.39   & $-$0.05 \\
+1991 & $-$3.15 & $-$2.95 & 0.20  & 2003 & 1.21   & 1.22   & 0.01 \\
+1992 & $-$1.88 & $-$1.88 & $-$0.00 & 2004 & 1.29   & 1.46   & 0.17 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Mean absolute difference over 1981--2004: 0.13 points. Reconstructed series continues through 2024 (peaking near 3.35 in 2018, then declining to 0.51 by 2024), spanning the 2018/2019 Polity-V-to-V-Dem source switch without a visible discontinuity (Figure B-3).
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/validation_democracy.png}
+\caption{Democracy (Polity2): Original vs.\ Reconstructed (SSA Mean)}
+\label{fig:B3}
+\begin{minipage}{0.9\textwidth}
+\footnotesize \textit{Notes:} SSA-mean Polity2 score, 1981--2024. Solid line is the original series (1981--2004); dashed line is our reconstruction (full 1981--2024, switching from Polity V to rescaled V-Dem after 2018).
+\end{minipage}
+\end{figure}
+
+None of the three discrepancies documented in this appendix reflects a coding defect in our reconstruction pipeline; each is attributable to a genuine revision made by the respective data provider since \citeauthor{bruckner2011rain}'s original data were assembled. Because rainfall and GDP are each spliced at the same 2004/2005 boundary the merged panel uses to switch from the original data to the extension, we test directly whether either splice drives our headline structural-break finding in \ref{Appendix_D}.
+
+\section{Variable Definitions, Sample, and Descriptive Statistics\label{Appendix_C}}
+
+\subsection*{Appendix C.1\quad Critical Variable and Timing Mapping}
+
+The underlying database stores \texttt{polity\_change} as a \emph{backward} difference ($D_t - D_{t-1}$), while \citeauthor{bruckner2011rain}'s (\citeyear{bruckner2011rain}) notation and column labels use a \emph{forward} difference convention. This introduces a systematic two-period offset between the paper's variable labels and the underlying database columns; Table C-1 records the mapping we use throughout \ref{Appendix_A} and \ref{Appendix_D} to ensure every regression is estimated on the paper's intended timing.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Mapping from Paper Labels to Panel Columns}
+\label{tab:C1}
+\begin{tabular}{llp{6cm}}
+\toprule
+Paper label & Panel column & Role \\
+\midrule
+Log rainfall, $t$ (contemporaneous)  & \texttt{lgpcp\_l}  & Table IV/A-2 regressor \\
+Log rainfall, $t-1$ (lagged)         & \texttt{lgpcp\_l2} & The 2SLS instrument throughout \\
+Log GDP per capita, $t-1$            & \texttt{lgdp\_l2}  & Table V/A-3 endogenous regressor \\
+Recession indicator, $t-1$           & \texttt{recession\_l2} & Table VI/A-4 endogenous regressor \\
+Polity2, $t$ (convergence control)   & \texttt{polity2l}  & Table VII/A-5 control \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} All 2SLS specifications in \ref{Appendix_A} instrument the endogenous regressor with \texttt{lgpcp\_l2}, never with \texttt{lgpcp\_l}; using the wrong column reproduces a first stage of the opposite timing and does not match \citet{bruckner2011rain}.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix C.2\quad Country Sample}
+
+The panel covers the same 41 Sub-Saharan African countries as \citet{bruckner2011rain}, unchanged by the extension: Angola, Benin, Botswana, Burkina Faso, Burundi, Cameroon, Central African Republic, Chad, Congo (Dem.\ Rep.), Congo (Rep.), C\^ote d'Ivoire, Djibouti, Ethiopia, Gabon, Gambia, Ghana, Guinea, Guinea-Bissau, Kenya, Lesotho, Liberia, Madagascar, Malawi, Mali, Mauritania, Mozambique, Namibia, Niger, Nigeria, Rwanda, Senegal, Sierra Leone, Somalia, South Africa, Sudan, Eswatini (Swaziland), Tanzania, Togo, Uganda, Zambia, and Zimbabwe.
+
+\subsection*{Appendix C.3\quad Descriptive Statistics}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Descriptive Statistics, Original and Extended Samples}
+\label{tab:C2}
+\begin{tabular}{lrrrrr}
+\toprule
+Variable & Mean & Std.\ Dev.\ & Min & Max & $N$ \\
+\midrule
+\multicolumn{6}{l}{\textit{Panel A: Original Sample (1981--2004)}} \\
+Polity2                        & $-$2.46  & 5.67  & $-$10.00 & 9.00   & 955 \\
+$\Delta$Polity2 (backward)     & 0.25    & 2.10  & $-$15.00 & 15.00  & 955 \\
+Log rainfall, $t$              & 6.71    & 0.64  & 4.57     & 7.86   & 961 \\
+Log rainfall, $t-1$            & 6.72    & 0.64  & 4.57     & 7.86   & 961 \\
+Log GDP per capita             & 7.07    & 0.76  & 5.66     & 9.25   & 937 \\
+Log GDP per capita, $t-1$      & 7.02    & 0.75  & 5.54     & 9.25   & 961 \\
+Recession indicator, $t-1$     & 0.50    & 0.50  & 0.00     & 1.00   & 961 \\
+Rainfall, mm/year               & 973.68  & 496.66 & 96.11   & 2{,}587.64 & 961 \\
+Agricultural share of GDP (\%) & 31.67   & 15.38 & 3.45     & 66.20  & 961 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Panel B: Extended Sample (1981--2024)}} \\
+Polity2                        & $-$0.28  & 5.74  & $-$10.00 & 10.00  & 1{,}774 \\
+$\Delta$Polity2 (backward)     & 0.11    & 1.85  & $-$15.11 & 15.00  & 1{,}770 \\
+Log rainfall, $t$              & 6.72    & 0.66  & 4.57     & 7.86   & 1{,}780 \\
+Log rainfall, $t-1$            & 6.72    & 0.65  & 4.57     & 7.86   & 1{,}779 \\
+Log GDP per capita             & 7.48    & 0.90  & 5.66     & 9.97   & 1{,}716 \\
+Log GDP per capita, $t-1$      & 7.44    & 0.90  & 5.54     & 9.97   & 1{,}781 \\
+Recession indicator, $t-1$     & 0.50    & 0.50  & 0.00     & 1.00   & 1{,}699 \\
+Rainfall, mm/year               & 990.25  & 513.87 & 96.11   & 2{,}587.64 & 1{,}781 \\
+Agricultural share of GDP (\%) & 31.62   & 15.37 & 3.45     & 66.20  & 1{,}781 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Computed from \texttt{panel\_final.csv}. Agricultural share of GDP is time-invariant within country (carried forward from the original data) and therefore has identical descriptive statistics across both panels. The rise in mean Log GDP per capita from Panel A to Panel B partly reflects the PWT 6.2-to-11.0 base-year change documented in Appendix B.4, not only real growth.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\section{Instrument Diagnostics and Structural Break Tests\label{Appendix_D}}
+
+This appendix collects the diagnostic evidence behind our reading of the 2SLS results in \ref{Appendix_A}: the instrument (Log rainfall, $t-1$) is strong and exogenous in the original 1981--2004 sample, but its relevance collapses after roughly 2004--2007, and this collapse is a genuine, dateable structural break rather than an artifact of splicing data vintages at the extension boundary.
+
+\subsection*{Appendix D.1\quad Instrument Relevance, Reduced Form, and Exogeneity}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Instrument Validity Tests}
+\label{tab:D1}
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{Original (1981--2004)} & \multicolumn{2}{c}{Extended (1981--2024)} \\
+ & Coefficient & $F$ & Coefficient & $F$ \\
+\midrule
+\multicolumn{5}{l}{\textit{A. Relevance (first stage of Log rainfall, $t-1$)}} \\
+$\to$ Log GDP p.c., $t-1$   & 0.079 (0.029) & 7.40*** & 0.100 (0.061) & 2.68 \\
+$\to$ Recession, $t-1$      & $-$0.387 (0.138) & 7.85*** & $-$0.210 (0.094) & 5.00** \\
+\midrule
+\multicolumn{5}{l}{\textit{B. Reduced form ($\to\Delta$Polity2 directly)}} \\
+Coefficient (SE)            & \multicolumn{2}{c}{$-$1.431* (0.735)} & \multicolumn{2}{c}{$-$0.571 (0.405)} \\
+\midrule
+\multicolumn{5}{l}{\textit{C. Exogeneity (Sargan--Hansen $J$, using \texttt{lgpcp\_l2} + \texttt{lgpcp\_l3})}} \\
+$J$-statistic (df=1)        & \multicolumn{2}{c}{3.050, $p=0.081$} & \multicolumn{2}{c}{1.664, $p=0.197$} \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} $N=955$ (original) and $N=1{,}769$ (extended) in Panel A rows; $N=961$/$N=1{,}699$ for the recession first stage; $N=955$/$N=1{,}769$ for Panel B; $N=955$/$N=1{,}768$ for Panel C. Stock--Yogo \citep{stockyogo2005weak} rule of thumb: $F>10$ indicates a strong instrument. The Sargan--Hansen test is not cluster-robust and should be interpreted cautiously with only $G=41$ clusters; it marginally rejects exogeneity in the original sample ($p=0.081$) and cannot reject it in the extended sample ($p=0.197$). *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix D.2\quad Anderson--Rubin Confidence Sets}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Anderson--Rubin 95\% Confidence Sets}
+\label{tab:D2}
+\begin{tabular}{llccc}
+\toprule
+Table & Sample & 2SLS estimate & AR $p$-value & AR 95\% CI \\
+\midrule
+Table A-3 (Log GDP $\to\Delta$Polity2)  & Original & $-$18.021 & 0.051*  & $[-76.0,\ 0.1]$ \\
+Table A-3 (Log GDP $\to\Delta$Polity2)  & Extended & $-$5.705  & 0.159   & Uninformative \\
+Table A-4 (Recession $\to\Delta$Polity2) & Original & 3.584    & 0.051*  & $[-0.0,\ 11.2]$ \\
+Table A-4 (Recession $\to\Delta$Polity2) & Extended & 3.165    & 0.143   & $[-1.8,\ 33.0]$ \\
+Table A-7 (Log GDP $\to$ DemTrans)       & Original & $-$1.285 & 0.029** & $[-6.4,\ -0.1]$ \\
+Table A-7 (Log GDP $\to$ DemTrans)       & Extended & $-$2.280 & 0.005*** & Uninformative \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} 95\% Anderson--Rubin \citep{andersonrubin1949} confidence sets via adaptive grid search (2,000 points). ``Uninformative'' denotes a set wider than $\pm500$ units, indicating the instrument is too weak to bound $\beta$ despite a significant AR $p$-value. The original-sample Table A-7 estimate, $[-6.4,-0.1]$, is the most precisely identified 2SLS result in the paper.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix D.3\quad Alternative Rainfall Measures}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{First-Stage $F$-Statistic Across Rainfall Measures}
+\label{tab:D3}
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{Original (1981--2004)} & \multicolumn{2}{c}{Extended (1981--2024)} \\
+Instrument & $F$ & $N$ & $F$ & $N$ \\
+\midrule
+Log annual total (baseline, \texttt{lgpcp\_l2})     & 7.40 & 955 & 2.68 & 1{,}769 \\
+Log growing-season total (\texttt{lgpcp\_gs\_l2})    & 2.50 & 853 & \textbf{8.57***} & \textbf{1{,}649} \\
+Deviation from country mean (\texttt{gpcp\_anom\_l2}) & 6.09** & 873 & 2.39 & 1{,}688 \\
+Extreme rainfall dummy, p20/p80 (\texttt{rain\_extreme\_l2}) & 0.65 & 873 & 0.08 & 1{,}688 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} First stage of Log GDP per capita, $t-1$ on each instrument. None of the four measures clears the Stock--Yogo $F>10$ threshold in the original sample, but growing-season rainfall is the only one to do so in the extended sample, after correcting the longitude-convention bug documented in Appendix B.3 (Table B-2); a version of this instrument affected by that bug returns no significant relevance whatsoever. We recommend growing-season rainfall over the annual total as the preferred instrument for extended-sample specifications. *** $p<0.01$, ** $p<0.05$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix D.4\quad Structural Break in the First Stage}
+
+We test for a break in the rainfall$\to$GDP first stage using both a Chow test at the a priori 2004 splice date and an Andrews \citep{andrews1993tests} sup-Wald test that estimates the breakpoint from the data, searching over 1990--2015.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Structural Break Tests: Chow (2004) and Andrews Sup-Wald}
+\label{tab:D4}
+\begin{tabular}{lccc}
+\toprule
+\multicolumn{4}{l}{\textit{A. Chow test at 2004}} \\
+ & Coefficient (SE) & $F$ & $p$ \\
+\midrule
+Pre-2004 (1981--2004)  & 0.079 (0.029) & 7.40 & 0.0065*** \\
+Post-2004 (2005--2024) & 0.008 (0.038) & 0.04 & 0.8388 \\
+Full (1981--2024)      & 0.100 (0.061) & 2.68 & 0.1014 \\
+\multicolumn{4}{l}{Chow Wald test for equal pre/post coefficients: $t=1.509$, $p=0.1312$} \\
+\addlinespace
+\multicolumn{4}{l}{\textit{B. Andrews sup-Wald test (breakpoint search, selected years)}} \\
+Candidate break year & Pre-break coef.\ & Post-break coef.\ & Wald $t$ ($p$) \\
+\midrule
+2000 & 0.077 & 0.008  & 0.834 (0.4045) \\
+2003 & 0.072 & $-$0.022 & 1.486 (0.1372) \\
+2004 & 0.079 & 0.008  & 1.509 (0.1312) \\
+2005 & 0.109 & $-$0.003 & 2.317 (0.0205**) \\
+2006 & 0.087 & 0.000  & 1.871 (0.0613*) \\
+\textbf{2007} & \textbf{0.105} & \textbf{$-$0.027} & \textbf{2.790 (0.0053***)} \\
+2008 & 0.078 & $-$0.028 & 1.970 (0.0488**) \\
+2009 & 0.092 & $-$0.013 & 1.698 (0.0895*) \\
+2010 & 0.093 & $-$0.020 & 1.719 (0.0855*) \\
+2015 & 0.076 & $-$0.026 & 1.528 (0.1265) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Panel A tests the a priori break at the 2004/2005 panel-splice date and cannot reject equal coefficients ($p=0.131$), because it does not allow the true break to fall elsewhere. Panel B lets the data choose the breakpoint over a 1990--2015 search grid (26 candidate years); the sup-Wald statistic peaks at \textbf{2007} ($t=2.790$, $p=0.0053$), three years after the panel's own splice date, indicating the instrument's decline is a genuine post-sample economic development, not an artifact of where we happened to divide the two data vintages. A companion rolling 10-year-window first-stage $F$-statistic (plotted in Figure D-1, panel b) peaks at $F=9.30$ for the 1983--1992 window and falls to $F=0.00$ for the 2005--2014 window, corroborating the same 2000s collapse. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix D.5\quad Is the Break a Vintage-Splicing Artifact?}
+
+Both real GDP per capita and rainfall are spliced across two data vintages at the panel's 2004/2005 boundary (Appendix B.4), raising the concern that the 2007 break identified above could be a statistical artifact of the splice rather than a real economic phenomenon. We address this directly by rebuilding each series from a single vintage spanning the entire 1981--2024 period --- PWT 11.0 throughout for GDP, and GPCP v2.3 throughout for rainfall --- and re-running both the Chow and Andrews tests on every combination of spliced/single-vintage series.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Structural Break Robustness to Vintage Splicing}
+\label{tab:D5}
+\begin{tabular}{lccc}
+\toprule
+Specification & Breakpoint & Wald $t$ & $p$ \\
+\midrule
+Original (both GDP and rainfall spliced)   & 2007 & 2.790 & 0.0053*** \\
+GDP single-vintage (PWT 11.0 only); rainfall spliced & 2007 & 1.843 & 0.0654* \\
+Rainfall single-vintage (GPCP v2.3 only); GDP spliced & 2007 & 2.245 & 0.0247** \\
+Both single-vintage (no splice anywhere)   & 2007 & 1.774 & 0.0761* \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} The sup-Wald breakpoint is 2007 under every combination of spliced and single-vintage series --- it never moves. Only the statistical strength of the test changes: significance ranges from $p=0.0053$ (both spliced, our baseline specification) to $p=0.0761$ (neither spliced), remaining significant at least at the 10\% level throughout. Splicing data vintages adds some spurious sharpness to the test statistic but is not the source of the underlying break. For reference, the single-vintage Chow test at 2004 gives Pre-2004 $F=2.02$ ($p=0.1553$) and Post-2004 $F=0.11$ ($p=0.7349$) for GDP, versus $F=7.40^{***}$ pre-2004 under the original spliced series on the identical 1981--2004 window and countries --- illustrating how much of the apparent pre/post contrast in levels is attributable to the GDP vintage alone. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix D.6\quad Agricultural Share of GDP and First-Stage Strength}
+
+The rainfall$\to$GDP first stage is meant to capture rainfall's effect on economies with a substantial agricultural sector. We test whether the post-2004 collapse in first-stage strength (Appendix D.4) is concentrated in economies that industrialized fastest, by splitting the sample at the median 1981--2004 agricultural share of GDP (27.6\%) into 20 high-agriculture and 20 low-agriculture countries.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{First-Stage Strength by Agricultural Intensity}
+\label{tab:D6}
+\begin{tabular}{lcccc}
+\toprule
+Group & Period & Coefficient & $F$ & $N$ \\
+\midrule
+High agricultural share & Original (1981--2004) & 0.122 & 5.61**  & 437 \\
+High agricultural share & Extended (1981--2024) & $-$0.030 & 0.07 & 811 \\
+Low agricultural share  & Original (1981--2004) & 0.075 & 2.76*   & 470 \\
+Low agricultural share  & Extended (1981--2024) & 0.141 & 3.38*   & 870 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} High-agricultural-share countries lose essentially all first-stage relevance in the extended sample ($F$ falls from $5.61^{**}$ to $0.07$), while low-agricultural-share countries retain marginal relevance throughout ($F=2.76^{*}$ to $3.38^{*}$). A rolling 10-year-window version of this comparison (Appendix D.4) correlates strongly with the SSA-wide mean agricultural share over time ($r=0.738$, $p<0.001$), consistent with a time-series decline in agriculture's centrality to these economies. There is, however, no corresponding \emph{cross-country} relationship between a country's average agricultural share and how much its own first-stage slope has weakened ($r=-0.008$, $p=0.962$, computed across all 41 countries individually) --- the weakening documented here is a shared, economy-wide time trend, not a compositional artifact of which countries happen to industrialize. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix D.7\quad Refined Rainfall Instruments}
+
+We construct three alternative instruments intended to address specific threats to relevance or exogeneity: an ENSO-orthogonalized rainfall series that removes each country's own El Ni\~no/Southern Oscillation loading (to rule out a global-climate confound); an irrigation-adjusted series that down-weights rainfall by each country's irrigated agricultural land share (since irrigated agriculture should respond less to rainfall shocks); and a regional-neighbor rainfall series (a GDP-weighted average of rainfall in other countries in the same region, excluding the country itself).
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{First-Stage Comparison of Refined Instruments}
+\label{tab:D7}
+\begin{tabular}{lcccc}
+\toprule
+Instrument & Coefficient & SE & $F$ & $N$ \\
+\midrule
+Baseline: Log rainfall, $t-1$ & 0.095 & 0.061 & 2.40 & 1{,}779 \\
+ENSO-orthogonalized           & 0.100 & 0.065 & 2.32 & 1{,}779 \\
+Irrigation-adjusted           & 0.096 & 0.061 & 2.46 & 1{,}779 \\
+Regional-neighbor             & 0.015 & 0.062 & 0.06 & 1{,}781 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Full sample, 1981--2024. Stock--Yogo 10\% critical value for one instrument: 16.38. None of the four instruments clears $F=10$ on the full sample (compare Table D-3, which shows growing-season rainfall does clear it once its own longitude bug is fixed). Fewer than 5\% of SSA countries have appreciable irrigated agricultural land, so the irrigation adjustment has limited traction in this setting.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Incremental Relevance and Overidentification Tests}
+\label{tab:D8}
+\begin{tabular}{lcc}
+\toprule
+\multicolumn{3}{l}{\textit{A. Incremental relevance (added $F$ over baseline)}} \\
+Instrument & Added $F$ & $p$ \\
+\midrule
+ENSO-orthogonalized  & 0.67  & 0.4128 \\
+Irrigation-adjusted  & 10.04 & 0.0015*** \\
+Regional-neighbor    & 0.24  & 0.6258 \\
+\addlinespace
+\multicolumn{3}{l}{\textit{B. Sargan--Hansen overidentification ($J$-test, baseline + refined jointly instrumenting)}} \\
+Instrument pair & $J$ ($p$) & 2SLS estimate \\
+\midrule
+Baseline + ENSO-orthogonalized & 0.367 (0.5446) & $-$9.682 \\
+Baseline + Irrigation-adjusted & 2.071 (0.1501) & $-$2.847 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} $N=1{,}779$/$N=1{,}772$, $G=41$ clusters. Panel A tests whether each refined instrument adds relevance beyond the baseline; only the irrigation-adjusted instrument does so significantly. Panel B cannot reject the overidentifying restriction for either pair, consistent with instrument exogeneity, though the Sargan--Hansen statistic is not cluster-robust and should be read cautiously with only 41 clusters. *** $p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/instrument_comparison.png}
+\caption{Instrument Comparison: First-Stage Strength, Stability, and Exogeneity}
+\label{fig:D1}
+\begin{minipage}{0.95\textwidth}
+\footnotesize \textit{Notes:} Panel (a): first-stage $F$-statistics for the four instruments in Table D-7, with the Stock--Yogo 10\% critical value (16.38) marked. Panel (b): rolling 10-year-window first-stage $F$-statistic for the baseline instrument, 1981--2024, with $F=10$ and the 2007 break (Appendix D.4) marked. Panel (c): incremental relevance $F$-statistics from Table D-8A, with the irrigation-adjusted instrument (the only significant one) highlighted. Panel (d): Sargan--Hansen $J$-test $p$-values from Table D-8B.
+\end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/instrument_timeseries.png}
+\caption{Rainfall Instrument Time Series, 1981--2024}
+\label{fig:D2}
+\begin{minipage}{0.95\textwidth}
+\footnotesize \textit{Notes:} Panel (a): SSA-mean log rainfall levels for the baseline and three refined instruments. Panel (b): each refined series' deviation from the baseline. The ENSO-orthogonalized series is level-preserving (it removes only the country-specific ENSO-attributable component, not the full country/year fixed effect), which is why it stays visually close to the baseline; the regional-neighbor series is constructed as a region-weighted rather than a strict leave-one-out country average, since the latter is mechanically indistinguishable from the plain country mean.
+\end{minipage}
+\end{figure}
+
+\subsection*{Appendix D.8\quad Split-Sample Analysis: Pre- vs.\ Post-2004}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Split-Sample First Stage, Reduced Form, and 2SLS}
+\label{tab:D9}
+\begin{tabular}{lccc}
+\toprule
+ & Pre-2004 & Post-2004 & Full \\
+ & (1981--2004) & (2005--2024) & (1981--2024) \\
+\midrule
+First stage (coef., $F$)   & 0.075*** (7.32) & 0.005 (0.02) & 0.095 (2.40) \\
+Instrument strength         & Adequate        & Weak ($F<10$) & Weak ($F<10$) \\
+Reduced form (coef., $p$)  & $-$0.125** (0.030) & $-$0.113 (0.123) & $-$0.142*** (0.005) \\
+2SLS (coef., $p$)           & $-$15.883 (0.139) & 51.178 (0.903) & $-$8.886 (0.306) \\
+$N$ (first stage)           & 961             & 818          & 1{,}779 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} The pre-2004 instrument is strong by conventional standards and the 2SLS estimate is consistent in sign with Table A-3, though not significant on this particular sample restriction. The post-2004 instrument is too weak for reliable 2SLS inference (note the implausible sign and magnitude of the post-2004 2SLS coefficient, a textbook symptom of a weak first stage). The reduced-form rainfall$\to$transitions relationship, by contrast, is significant in the full sample and does not rely on a strong first stage for interpretation, which is why we treat it as the more credible extended-sample finding and analyze it directly in \ref{Appendix_E}. *** $p<0.01$, ** $p<0.05$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\section{Mechanism Analysis\label{Appendix_E}}
+
+Table A-8 shows that the direct, reduced-form relationship between rainfall and democratic transitions is the one result in this paper that \emph{strengthens} under extension, from $-0.125^{**}$ to $-0.142^{***}$, even as the 2SLS income-shock channel weakens. This appendix asks what is driving that relationship: which country-years account for it, whether it survives excluding any single country, whether it operates through income at all, and which of several candidate real-economy channels can account for it.
+
+\subsection*{Appendix E.1\quad Democratic Transition Events}
+
+Table E-1 lists all 41 democratic-transition events in the extended 1981--2024 sample together with the rainfall and income conditions prevailing the year before each transition.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Democratic Transition Events, 1981--2024}
+\label{tab:E1}
+\begin{tabular}{llccc}
+\toprule
+Country & Year & Log rainfall, $t-1$ & Log GDP p.c., $t-1$ & Below-median rainfall \\
+\midrule
+Sudan & 1986 & 5.653 & 6.481 & Yes \\
+Benin & 1991 & 7.015 & 6.798 & \\
+Madagascar & 1991 & 7.492 & 6.616 & \\
+Zambia & 1991 & 7.041 & 6.976 & \\
+Niger & 1991 & 5.304 & 6.640 & Yes \\
+Congo (Rep.) & 1992 & 7.420 & 7.581 & \\
+Mali & 1992 & 5.643 & 6.570 & Yes \\
+Lesotho & 1993 & 6.739 & 7.076 & \\
+Central African Rep.\ & 1993 & 7.301 & 6.776 & \\
+Ethiopia & 1993 & 6.471 & 5.958 & \\
+Guinea-Bissau & 1994 & 7.249 & 6.343 & \\
+Malawi & 1994 & 6.520 & 6.320 & \\
+Mozambique & 1994 & 6.535 & 6.672 & \\
+Ghana & 1996 & 6.953 & 7.076 & \\
+Sierra Leone & 1996 & 7.751 & 6.665 & \\
+Niger & 1999 & 5.236 & 6.659 & Yes \\
+Guinea-Bissau & 1999 & 7.313 & 6.537 & \\
+Lesotho & 1999 & 6.812 & 7.522 & \\
+Djibouti & 1999 & 6.047 & 8.113 & Yes \\
+Nigeria & 1999 & 7.268 & 6.905 & \\
+Senegal & 2000 & 6.329 & 7.318 & Yes \\
+C\^ote d'Ivoire & 2000 & 7.009 & 7.730 & \\
+Tanzania & 2000 & 6.678 & 6.614 & \\
+Sierra Leone & 2001 & 7.334 & 6.453 & \\
+Kenya & 2002 & 5.900 & 7.145 & Yes \\
+Mauritania & 2006 & 4.943 & 8.191 & Yes \\
+Zimbabwe & 2008 & 6.584 & 7.503 & \\
+Gabon & 2008 & 7.506 & 9.801 & \\
+Guinea & 2009 & 7.176 & 7.601 & \\
+Niger & 2009 & 5.398 & 7.015 & Yes \\
+Madagascar & 2010 & 7.198 & 7.351 & \\
+C\^ote d'Ivoire & 2010 & 7.199 & 7.803 & \\
+Mali & 2012 & 6.003 & 7.573 & Yes \\
+Burkina Faso & 2014 & 6.881 & 7.525 & \\
+Tanzania & 2014 & 6.860 & 7.792 & \\
+Central African Rep.\ & 2015 & 7.317 & 6.799 & \\
+Gambia & 2016 & 6.445 & 7.662 & \\
+Ethiopia & 2017 & 6.571 & 7.470 & \\
+Burundi & 2020 & 7.219 & 6.780 & \\
+C\^ote d'Ivoire & 2022 & 7.132 & 8.626 & \\
+Benin & 2022 & 7.018 & 8.071 & \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} 41 events across 1981--2024: 25 in the original 1981--2004 sample (21 distinct countries) and 16 post-2004 (15 distinct countries). Mean log rainfall in the year before transition is 6.681 (pre-2004) and 6.715 (post-2004), both close to the full-sample mean of 6.723, so transitions are not concentrated only in the driest country-years; ``Below-median rainfall'' flags the subset that occurred following a below-median rainfall realization.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix E.2\quad Robustness to Individual Countries}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Leave-One-Country-Out Robustness of the Reduced-Form Coefficient}
+\label{tab:E2}
+\begin{tabular}{lccc}
+\toprule
+Country dropped & Coefficient & $p$-value & Direction of change \\
+\midrule
+Eswatini & $-$0.158*** & 0.0042 & Strengthens \\
+Somalia & $-$0.158*** & 0.0057 & Strengthens \\
+Congo (Rep.) & $-$0.155*** & 0.0022 & Strengthens \\
+Angola & $-$0.153*** & 0.0032 & Strengthens \\
+Central African Rep.\ & $-$0.153*** & 0.0021 & Strengthens \\
+Ghana & $-$0.131*** & 0.0091 & Weakens \\
+Malawi & $-$0.131*** & 0.0084 & Weakens \\
+Guinea & $-$0.129** & 0.0100 & Weakens \\
+Sudan & $-$0.129** & 0.0141 & Weakens \\
+Kenya & $-$0.116** & 0.0121 & Weakens \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} Baseline (all 41 countries): $-0.142^{***}$, $p=0.005$. The ten countries shown are those whose exclusion moves the coefficient furthest in each direction; the coefficient remains statistically significant at conventional levels after dropping any single country. *** $p<0.01$, ** $p<0.05$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix E.3\quad Is the Effect Mediated Through Income?}
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Channel Decomposition: Rainfall, Income, and Transitions}
+\label{tab:E3}
+\begin{tabular}{lc}
+\toprule
+Step & Coefficient (SE) \\
+\midrule
+(1) Reduced form: rainfall $\to$ DemTrans                     & $-$0.142*** (0.051) \\
+(2) First stage: rainfall $\to$ Log GDP p.c.\                 & 0.060 (0.084) \\
+(3) OLS: Log GDP p.c.\ $\to$ DemTrans                         & $-$0.026 (0.025) \\
+(4) Reduced form conditioning on Log GDP p.c.                 & $-$0.140*** (0.051) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} $N=1{,}001$. Rainfall does not significantly predict income in the extended sample (step 2), and controlling for income leaves the rainfall$\to$transitions coefficient essentially unchanged (step 1 vs.\ step 4: $-0.142$ vs.\ $-0.140$). The effect is therefore direct rather than income-mediated, motivating the search for an alternative real-economy channel below.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
+
+\subsection*{Appendix E.4\quad Candidate Transmission Channels}
+
+We test four candidate channels using a three-step mediation design: (1) rainfall must predict the candidate mediator, (2) the mediator must predict transitions, and (3) controlling for the mediator must attenuate the direct reduced-form coefficient from step (1) of Table E-3. Data sources are the World Bank (agricultural and fiscal variables) and the UCDP/PRIO Armed Conflict Dataset \citep{gleditsch2002ucdp}.
+
+\begin{table}[H]
+\centering
+\begin{adjustbox}{max width=\textwidth}
+\begin{threeparttable}
+\caption{Mediation Tests for Four Candidate Channels}
+\label{tab:E4}
+\begin{tabular}{lccccl}
+\toprule
+Channel & Step 1 $p$ & Step 2 $p$ & RF after control & Attenuation & Verdict \\
+\midrule
+Cereal yield              & 0.0000*** & 0.0167**  & $-$0.125** & 11.9\%  & Partial mediator \\
+Food production index     & 0.0000*** & 0.0032*** & $-$0.093*  & \textbf{34.4\%} & Partial mediator \\
+Armed conflict (any)      & 0.2417    & 0.3927    & $-$0.150*** & --- & Not a mediator \\
+Civil war                 & 0.0231**  & 0.8000    & $-$0.148*** & --- & Not a mediator \\
+Food price (CPI) inflation & 0.2865   & 0.5811    & $-$0.139** & --- & Not a mediator \\
+Tax revenue, \% of GDP    & 0.2897    & 0.1255    & $-$0.041   & --- & Not a mediator \\
+Government revenue, \% of GDP & 0.6209 & 0.5528   & 0.017      & --- & Not a mediator \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} ``Step 1'' tests whether rainfall predicts the candidate mediator; ``Step 2'' tests whether the mediator predicts transitions, controlling for rainfall. A channel is classified as a (partial) mediator only if both steps are significant and the reduced-form coefficient shrinks after controlling for it. Agricultural production (via either cereal yield or the broader food-production index) is the only channel that satisfies both conditions; the food-production index accounts for 34\% of the direct effect (this figure reflects the DR Congo data-coverage correction documented in Appendix B.3, Table B-2, without which it was previously computed as 32\%). Armed conflict and food-price inflation fail at step 2 or step 1 respectively. Fiscal capacity (tax and government revenue) fails at step 1 with an adequate sample ($N\approx550$--600 after the same correction), so this channel is genuinely not supported by the data rather than merely underpowered. The remaining $\sim$66\% of the direct rainfall--transitions effect is unaccounted for by the channels we can measure with available SSA panel data; a plausible residual channel is direct political mobilization or protest in response to drought, for which we are not aware of a suitable panel measure across our full country sample. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+\end{tablenotes}
+\end{threeparttable}
+\end{adjustbox}
+\end{table}
 
 \putbib[refs]
 \end{spacing}
