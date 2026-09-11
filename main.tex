@@ -537,13 +537,13 @@ $N$          & 700 & 930 & 1{,}001 \\
 
 \section{Data Construction, Corrections, and Validation\label{Appendix_B}}
 
-This appendix documents how the three core variables --- democracy, real GDP per capita, and rainfall --- were extended beyond \citeauthor{bruckner2011rain}'s (\citeyear{bruckner2011rain}) original 1981--2004 coverage, the data-processing errors that surfaced along the way, and a validation exercise that reconstructs each variable's own 1981--2004 values from our extension pipeline and compares them, year by year, against \citeauthor{bruckner2011rain}'s original data.
+This appendix documents how the three core variables --- democracy, real GDP per capita, and rainfall --- were extended beyond \citeauthor{bruckner2011rain}'s (\citeyear{bruckner2011rain}) original 1981--2004 coverage. It also documents the data-processing errors that surfaced along the way. Finally, it reports a validation exercise that reconstructs each variable's own 1981--2004 values from our extension pipeline and compares them, year by year, against \citeauthor{bruckner2011rain}'s original data.
 
 \subsection*{Appendix B.1\quad Democracy: Polity V and Rescaled V-Dem}
 
-Democracy is extended in two stages. From 2005--2018 we use Polity V \citep{marshall2020polity5} directly, on the same $-10$ to $+10$ Polity2 scale as the original data; from 2019--2024, following the discontinuation of new Polity releases, we splice in the V-Dem dataset \citep{coppedge2024vdem}, rescaled onto the Polity2 metric. The rescaling maps each Polity component to its closest V-Dem analogue (Polity2 to \texttt{v2x\_polyarchy}, the Electoral Democracy Index; Exconst to \texttt{v2xlg\_legcon}, legislative constraints on the executive; Polcomp and Exrec to \texttt{v2xel\_frefair}, the free-and-fair-elections index), then matches the standard deviation of year-on-year \emph{changes} in each V-Dem series to the standard deviation of year-on-year changes in the corresponding Polity series over the 1982--2018 overlap, and cumulates the rescaled changes forward from each country's last available Polity value. For Polity2 the scaling factor is $\sigma(\Delta\text{Polity2})/\sigma(\Delta v2x\_polyarchy) = 1.8708/0.0445 = 42.08$; corresponding factors for Exconst, Polcomp, and Exrec are 59.77, 49.58, and 17.93. All rescaled series are clipped to their native Polity ranges ($-10$ to 10 for Polity2; 1--7, 1--10, and 1--8 for the concept scores).
+Democracy is extended in two stages. From 2005--2018, we use Polity V \citep{marshall2020polity5} directly, on the same $-10$ to $+10$ Polity2 scale as the original data; from 2019--2024, following the discontinuation of new Polity releases, we splice in the V-Dem dataset \citep{coppedge2024vdem}, rescaled onto the Polity2 metric. The rescaling procedure maps each Polity component to its closest V-Dem analogue: Polity2 to \texttt{v2x\_polyarchy} (the Electoral Democracy Index), Exconst to \texttt{v2xlg\_legcon} (legislative constraints on the executive), and Polcomp and Exrec to \texttt{v2xel\_frefair} (the free-and-fair-elections index). Each V-Dem series is then rescaled so that the standard deviation of its year-on-year changes matches the standard deviation of year-on-year changes in the corresponding Polity series over the 1982--2018 overlap, and the rescaled changes are cumulated forward from each country's last available Polity value. For Polity2, the scaling factor is $\sigma(\Delta\text{Polity2})/\sigma(\Delta v2x\_polyarchy) = 1.8708/0.0445 = 42.08$; corresponding factors for Exconst, Polcomp, and Exrec are 59.77, 49.58, and 17.93. All rescaled series are constrained to their native Polity ranges ($-10$ to 10 for Polity2; 1--7, 1--10, and 1--8 for the concept scores).
 
-Table B-1 reports the correlation between Polity2 and its V-Dem analogue over the full 1981--2018 overlap, which justifies using \texttt{v2x\_polyarchy} as the rescaling anchor.
+Table B-1 reports the correlation between Polity2 and its V-Dem analogue over the full 1981--2018 overlap, which justifies using \texttt{v2x\_polyarchy} as the reference series for rescaling.
 
 \begin{table}[H]
 \centering
@@ -575,13 +575,13 @@ Exrec    & \texttt{v2x\_elecoff} (Elected Officials)       & 0.163 & 0.284 \\
 
 \subsection*{Appendix B.2\quad Real GDP per Capita: Penn World Table 11.0}
 
-Real GDP per capita is extended for 2005--2023 using Penn World Table (PWT) 11.0 \citep{feenstra2015pwt}, constructed as $\text{lgdp} = \log(\text{rgdpe}/\text{pop})$, where \texttt{rgdpe} is expenditure-side real GDP and \texttt{pop} is population, both from PWT's \texttt{Data} sheet. PWT 11.0 reports levels in 2021 constant PPP dollars, whereas the original \citeauthor{bruckner2011rain} data use PWT 6.2's 2005 USD base; within-version growth rates are unaffected by this choice, but the \emph{level} of GDP per capita is not directly comparable across the 2004/2005 splice point, a fact we return to in Appendix B.4 and use as the basis for the vintage-splice robustness check in \ref{Appendix_D}. Real GDP per capita is not available past 2023 in the current PWT release, so \texttt{lgdp} for 2024 is missing by construction; its one- and two-period lags are still available for all 1981--2024 country-years.
+Real GDP per capita is extended for 2005--2023 using Penn World Table (PWT) 11.0 \citep{feenstra2015pwt}. It is constructed as $\text{lgdp} = \log(\text{rgdpe}/\text{pop})$, where \texttt{rgdpe} is expenditure-side real GDP and \texttt{pop} is population, both taken from PWT's \texttt{Data} sheet. PWT 11.0 reports levels in 2021 constant PPP dollars, whereas the original \citeauthor{bruckner2011rain} data use PWT 6.2's 2005 USD base. Within-version growth rates are unaffected by this choice, but the \emph{level} of GDP per capita is not directly comparable across the 2004/2005 splice point. We return to this fact in Appendix Bz.4 and use it as the basis for the vintage-splice robustness check in \ref{Appendix_D}. Real GDP per capita is not available past 2023 in the current PWT release, so \texttt{lgdp} for 2024 is missing by construction. Its one- and two-period lags, however, are still available for all 1981--2024 country-years.
 
 \subsection*{Appendix B.3\quad Rainfall: GPCP v2.3 and the Longitude-Convention Bug}
 
-Rainfall is extended for 2005--2024 using the NASA/NOAA Global Precipitation Climatology Project (GPCP) Monthly Precipitation Climate Data Record, version 2.3 \citep{huffman1997gpcp}, on a $2.5^{\circ}\times2.5^{\circ}$ grid reported in mm/day. Each monthly grid is converted to a monthly total (multiplying by days in month), summed to an annual total, and spatially joined to country polygons from the Natural Earth 1:50m Admin-0 boundaries; small countries whose land area falls between grid cells are assigned their nearest grid-cell centroid rather than an empty spatial average.
+Rainfall is extended for 2005--2024 using the NASA/NOAA Global Precipitation Climatology Project (GPCP) Monthly Precipitation Climate Data Record, version 2.3 \citep{huffman1997gpcp}. This record reports rainfall on a $2.5^{\circ}\times2.5^{\circ}$ grid in mm/day. Each monthly grid is converted to a monthly total (multiplying by days in month) and aggregated to an annual total. The result is spatially joined to country boundaries from the Natural Earth 1:50m Admin-0 dataset. Small countries whose land area falls between grid cells have no grid-cell center within their borders. Therefore, we use the value from the nearest grid cell's center point instead of attempting to average over an empty set of cells.
 
-While building this pipeline we discovered and corrected two bugs that had silently zeroed out or misattributed rainfall for a subset of countries in earlier drafts of this project. Table B-2 documents both, the tables and figures they affected, and the quantified effect of the fix; both corrections are reflected in every result reported in this paper and its supplemental materials.
+When building this pipeline, we discovered and corrected two bugs that had silently zeroed out or misattributed rainfall for a subset of countries in earlier drafts of this project. Table B-2 documents both bugs, the tables and figures they affected, and the quantified effect of the fix. Both corrections are reflected in every result reported in this paper and its supplemental materials.
 
 \begin{table}[H]
 \centering
@@ -604,7 +604,7 @@ Added an explicit \texttt{ZAR}$\leftrightarrow$\texttt{COD} remap before all Wor
 \end{adjustbox}
 \end{table}
 
-Table B-3 records the coverage decision that governs the merged panel: rainfall and GDP could in principle be extended through 2024 and 2023 respectively, but the panel's binding constraint is democracy, whose Polity V coverage ends in 2018.
+Table B-3 records the coverage decision behind the merged panel: rainfall and GDP could in principle be extended through 2024 and 2023 respectively, but the panel's binding constraint is democracy, whose Polity V coverage ends in 2018.
 
 \begin{table}[H]
 \centering
@@ -632,9 +632,9 @@ Rainfall (GPCP) & 1981--2004 & 2005--2024 & All 2024 months confirmed available 
 
 \subsection*{Appendix B.4\quad Validation Against the Original Data}
 
-To check that the extension pipeline reproduces \citeauthor{bruckner2011rain}'s own values rather than merely being internally consistent, we rebuild each of the three variables' 1981--2004 series independently, using exactly the extension-period methodology, and compare the result to the original data year by year. Figures B-1--B-3 and Tables B-4--B-6 report the comparison; the underlying code is in \texttt{data\_validation.ipynb}.
+To check that the extension pipeline reproduces \citeauthor{bruckner2011rain}'s own values instead of merely internally consistent, we rebuild each of the three variables' 1981--2004 series independently, using exactly the extension-period methodology. The result is compared to the original data, year by year. Figures B-1--B-3 and Tables B-4--B-6 report the comparison; the underlying code is in \texttt{data\_validation.ipynb}.
 
-\textbf{Rainfall.} The reconstructed GPCP v2.3 series tracks the original GPCP v2.0/2.1 series closely from 1981--1990 (within $\pm5\%$, with no consistent direction), then diverges systematically upward from 1991 onward, peaking at roughly $+16\%$ around 2001 and narrowing to $+9.9\%$ by 2004 (Table B-4; median absolute difference over the full overlap is 6.2\%, mean 7.3\%). This pattern matches \citeauthor{bruckner2011rain}'s own documented caveat that GPCP's underlying gauge density fell from roughly 32 stations per country in the 1980s to 18 in the 1990s and 8 after 2000, and is consistent with GPCP v2.3 being a reprocessed climate data record that incorporates gauge stations recovered after the original v2.0/2.1 release --- a genuine data revision by the provider, not a defect in our aggregation, which we verified directly against the raw NetCDF files.
+\textbf{Rainfall.} The reconstructed GPCP v2.3 series tracks the original GPCP v2.0/2.1 series closely from 1981--1990 (within $\pm5\%$, with no consistent direction). It then diverges systematically upward from 1991 onward, peaking at roughly $+16\%$ around 2001 and narrowing to $+9.9\%$ by 2004 (Table B-4; median absolute difference over the full overlap is 6.2\%, mean 7.3\%). GPCP v2.3 is a reprocessed climate data record that incorporates additional gauge stations and satellite-calibration adjustments made after the original v2.0/2.1 release. The divergence therefore reflects a genuine data revision by the provider rather than a defect in our aggregation, which we verified directly against the raw NetCDF files.
 
 \begin{table}[H]
 \centering
@@ -678,7 +678,7 @@ Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
 \end{minipage}
 \end{figure}
 
-\textbf{Real GDP per capita.} Unlike rainfall, the reconstructed PWT 11.0 series is systematically \emph{above} the original PWT 6.2 series in every overlap year, by $+161\%$ in 1981 narrowing steadily to $+29\%$ by 2003 and to $-7\%$ by 2004 (Table B-5). This is the expected signature of successive International Comparison Program (ICP) benchmark revisions --- PWT 11.0 incorporates the 2005 and 2011 ICP rounds that PWT 6.2 predates, and each revision revises the earliest, most sparsely price-surveyed years by the largest amount, which is exactly the shrinking-gap pattern observed here. Because this gap is largest precisely where the panel is \emph{not} spliced (the gap nearly closes by 2004, the actual splice year), the level discontinuity introduced into the merged panel is smaller than the mid-sample gap alone would suggest; we quantify its effect on our structural-break finding directly in \ref{Appendix_D}.
+\textbf{Real GDP per capita.} Unlike rainfall, the reconstructed PWT 11.0 series is systematically \emph{above} the original PWT 6.2 series in every overlap year, by $+161\%$ in 1981 narrowing steadily to $+29\%$ by 2003 and to $-7\%$ by 2004 (Table B-5). This is the expected signature of successive International Comparison Program (ICP) benchmark revisions. PWT 11.0 incorporates the 2005 and 2011 ICP rounds that PWT 6.2 predates. Each revision revises the earliest, most sparsely price-surveyed years by the largest amount, which is exactly the shrinking-gap pattern observed here. Because this gap is largest precisely where the panel is \emph{not} spliced (the gap nearly closes by 2004, the actual splice year), the level discontinuity introduced into the merged panel is smaller than the mid-sample gap alone would suggest; we quantify its effect on our structural-break finding directly in \ref{Appendix_D}.
 
 \begin{table}[H]
 \centering
@@ -722,7 +722,7 @@ Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
 \end{minipage}
 \end{figure}
 
-\textbf{Democracy.} The reconstructed Polity2 series is the tightest validation of the three, with a mean absolute difference of only 0.13 points on the $-10$ to $+10$ scale over the full 1981--2004 overlap (Table B-6), and it continues smoothly into the extension period, including across the 2018/2019 join where the source switches from Polity V to rescaled V-Dem.
+\textbf{Democracy.} The reconstructed Polity2 series is the tightest validation of the three, with a mean absolute difference of only 0.13 points on the $-10$ to $+10$ scale over the full 1981--2004 overlap (Table B-6). The series continues smoothly into the extension period, including across the 2018/2019 join where the source switches from Polity V to rescaled V-Dem.
 
 \begin{table}[H]
 \centering
@@ -766,7 +766,7 @@ Year & Orig.\ & Recon.\ & Diff & Year & Orig.\ & Recon.\ & Diff \\
 \end{minipage}
 \end{figure}
 
-None of the three discrepancies documented in this appendix reflects a coding defect in our reconstruction pipeline; each is attributable to a genuine revision made by the respective data provider since \citeauthor{bruckner2011rain}'s original data were assembled. Because rainfall and GDP are each spliced at the same 2004/2005 boundary the merged panel uses to switch from the original data to the extension, we test directly whether either splice drives our headline structural-break finding in \ref{Appendix_D}.
+None of the three discrepancies documented in this appendix reflects a coding defect in our reconstruction pipeline; each is attributable to a genuine revision made by the respective data provider after \citeauthor{bruckner2011rain} assembled their original data. Because rainfall and GDP are each spliced at the same 2004/2005 boundary that the merged panel uses to switch from the original data to the extension, we test directly whether either splice drives our headline structural-break finding in \ref{Appendix_D}.
 
 \section{Variable Definitions, Sample, and Descriptive Statistics\label{Appendix_C}}
 
