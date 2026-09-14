@@ -65,6 +65,7 @@
     Author 3\thanks{Address 3. \faEnvelopeO: \href{mailto:author3@email.edu}{author3@email.edu}.} \and
     Author 4\thanks{Address 4. \faEnvelopeO: \href{mailto:author4@email.edu}{author4@email.edu}.}%
 }
+\newcommand{\paperauthorsprose}{Author 1, Author 2, Author 3, and Author 4}
 
 % Plain-text author list (no \and, no \thanks) for use in running prose,
 % e.g. the Supplemental Materials opening paragraph -- \paperauthors itself
@@ -229,13 +230,17 @@ Summarize the findings, discuss limitations, and suggest directions for future w
 \begin{bibunit}[jpe]
 \begin{spacing}{1.45}
 
-\noindent This is the supplementary material for \paperauthorsprose\ (``\papertitle,'' \the\year), which replicates and extends \citet{bruckner2011rain} for 41 Sub-Saharan African (SSA) countries, extending their original 1981--2004 panel to 2024. The material is organized in five appendices. \ref{Appendix_A} reports the full replication and extension of every table in \citet{bruckner2011rain} (Tables III--IX), each estimated first on the original 1981--2004 sample to confirm reproduction of the published estimates and then on the sample extended to 2024, together with a three-sample robustness check that isolates the source of any change. \ref{Appendix_B} traces how the three core variables --- democracy, real GDP per capita, and rainfall --- were built from their original sources, including the corrections applied along the way. It then checks each reconstructed series against \citeauthor{bruckner2011rain}'s original data over the 1981--2004 overlap. \ref{Appendix_C} defines every variable, reports descriptive statistics, and lists the full country sample. \ref{Appendix_D} works through why the paper's instrument --- the log of rainfall lagged one period --- is strong and exogenous before 2004 but not after. It reports relevance and exogeneity tests, Anderson--Rubin confidence sets, a battery of alternative rainfall instruments, and a formal dating of the break to 2007 that survives even when the underlying data vintages are not spliced.
+\noindent This is the supplementary material for \paperauthorsprose\ (``\papertitle,'' \the\year), which replicates and extends \citet{bruckner2011rain} for 41 Sub-Saharan African (SSA) countries, extending their original 1981--2004 panel to 2024. The material is organized in five appendices. 
+
+\ref{Appendix_A} presents the full replication and extension of every table in \citet{bruckner2011rain} (Tables III--IX). Each table was estimated first on the original 1981--2004 sample to confirm reproduction of the published estimates and then on the sample extended to 2024. A three-sample robustness check is used to isolate the source of any change. 
+\ref{Appendix_B} traces how the three core variables --- democracy, real GDP per capita, and rainfall --- were built from their original sources, including the corrections applied through the process. It then checks each reconstructed series against \citeauthor{bruckner2011rain}'s original data over the 1981--2004 overlap.
+\ref{Appendix_C} defines every variable, reports descriptive statistics, and lists the full country sample. \ref{Appendix_D} works through why the paper's instrument --- the log of rainfall lagged one period --- is strong and exogenous before 2004 but not after this period. It reports relevance and exogeneity tests, Anderson--Rubin confidence sets, a range of alternative rainfall instruments, and a formal dating of the break to 2007 that survives even when the underlying data vintages are not spliced.
 
 Finally, \ref{Appendix_E} traces the mechanism behind the one relationship that strengthens under extension: rainfall's direct effect on democratic transitions. It decomposes this effect into its country/year drivers and tests four candidate transmission channels.
 
 \section{Full Extended-Sample Replication Tables\label{Appendix_A}}
 
-This appendix reports our replication and extension of Tables III--IX of \citet{bruckner2011rain} in full. For every table, Panel A reproduces the original specification on the original 1981--2004 sample, verifying our reconstruction of the data and code against the published estimates, and Panel B repeats the identical specification on the sample extended to 2024. All specifications include country fixed effects, country-specific linear time trends, and year fixed effects, and cluster standard errors at the country level, exactly as in \citet{bruckner2011rain}. For the instrumental-variables tables (Tables A-3, A-4, and A-7) the instrument is always \textit{Log rainfall, $t-1$}. We report both the conventional 2SLS standard error and the Anderson--Rubin \citep{andersonrubin1949} $p$-value, which is robust to weak instruments. The Anderson--Rubin $p$-value is the more reliable guide to significance whenever \ref{Appendix_D} indicates the first stage is not strong by conventional standards.
+This appendix reports our replication and extension of Tables III--IX of \citet{bruckner2011rain}. For every table, Panel A reproduces the original specification on the original 1981--2004 sample, verifying our reconstruction of the data and code against the published estimates. Panel B repeats the identical specification on the sample extended to 2024. All specifications include country fixed effects, country-specific linear time trends, year fixed effects, and cluster standard errors at the country level, exactly as in \citet{bruckner2011rain}. For the instrumental-variables tables (Tables A-3, A-4, and A-7) the instrument is always \textit{Log rainfall, $t-1$}. We report both the conventional 2SLS standard error and the Anderson--Rubin \citep{andersonrubin1949} $p$-value, which is robust to weak instruments. The Anderson--Rubin $p$-value is the more reliable guide to significance whenever \ref{Appendix_D} indicates the first stage is not strong by conventional standards.
 
 \begin{table}[H]
 \centering
@@ -558,9 +563,9 @@ This appendix documents how the three core variables --- democracy, real GDP per
 
 \subsection*{Appendix B.1\quad Democracy: Polity V and Rescaled V-Dem}
 
-Democracy is extended in two stages. From 2005--2018 we use Polity V \citep{marshall2020polity5} directly, on the same $-10$ to $+10$ Polity2 scale as the original data; from 2019--2024, following the discontinuation of new Polity releases, we splice in the V-Dem dataset \citep{coppedge2024vdem}, rescaled onto the Polity2 metric. The rescaling procedure maps each Polity component to its closest V-Dem analogue: Polity2 to \texttt{v2x\_polyarchy} (the Electoral Democracy Index), Exconst to \texttt{v2xlg\_legcon} (legislative constraints on the executive), and Polcomp and Exrec to \texttt{v2xel\_frefair} (the free-and-fair-elections index). Each V-Dem series is then rescaled so that the standard deviation of its year-on-year changes matches the standard deviation of year-on-year changes in the corresponding Polity series over the 1982--2018 overlap, and the rescaled changes are cumulated forward from each country's last available Polity value. For Polity2 the scaling factor is $\sigma(\Delta\text{Polity2})/\sigma(\Delta v2x\_polyarchy) = 1.8708/0.0445 = 42.08$; corresponding factors for Exconst, Polcomp, and Exrec are 59.77, 49.58, and 17.93. All rescaled series are clipped to their native Polity ranges ($-10$ to 10 for Polity2; 1--7, 1--10, and 1--8 for the concept scores).
+Democracy is extended in two stages. From 2005--2018, we use Polity V \citep{marshall2020polity5} directly, on the same $-10$ to $+10$ Polity2 scale as the original data; from 2019--2024, following the discontinuation of new Polity releases, we splice in the V-Dem dataset \citep{coppedge2024vdem}, rescaled onto the Polity2 metric. The rescaling procedure maps each Polity component to its closest V-Dem analogue: Polity2 to \texttt{v2x\_polyarchy} (the Electoral Democracy Index), Exconst to \texttt{v2xlg\_legcon} (legislative constraints on the executive), and Polcomp and Exrec to \texttt{v2xel\_frefair} (the free-and-fair-elections index). Each V-Dem series is then rescaled so that the standard deviation of its year-on-year changes matches the standard deviation of year-on-year changes in the corresponding Polity series over the 1982--2018 overlap, and the rescaled changes are cumulated forward from each country's last available Polity value. For Polity2, the scaling factor is $\sigma(\Delta\text{Polity2})/\sigma(\Delta v2x\_polyarchy) = 1.8708/0.0445 = 42.08$; corresponding factors for Exconst, Polcomp, and Exrec are 59.77, 49.58, and 17.93. All rescaled series are constrained to their native Polity ranges ($-10$ to 10 for Polity2; 1--7, 1--10, and 1--8 for the concept scores).
 
-Table B-1 reports the correlation between Polity2 and its V-Dem analogue over the full 1981--2018 overlap, which justifies using \texttt{v2x\_polyarchy} as the rescaling anchor.
+Table B-1 reports the correlation between Polity2 and its V-Dem analogue over the full 1981--2018 overlap, which justifies using \texttt{v2x\_polyarchy} as the reference series for rescaling.
 
 \begin{table}[H]
 \centering
@@ -596,7 +601,7 @@ Real GDP per capita is extended for 2005--2023 using Penn World Table (PWT) 11.0
 
 \subsection*{Appendix B.3\quad Rainfall: GPCP v2.3 and the Longitude-Convention Bug}
 
-Rainfall is extended for 2005--2024 using the NASA/NOAA Global Precipitation Climatology Project (GPCP) Monthly Precipitation Climate Data Record, version 2.3 \citep{huffman1997gpcp}. This record reports rainfall on a $2.5^{\circ}\times2.5^{\circ}$ grid in mm/day. Each monthly grid is converted to a monthly total (multiplying by days in month) and summed to an annual total. The result is spatially joined to country polygons from the Natural Earth 1:50m Admin-0 boundaries. Small countries whose land area falls between grid cells have no cell centroid within their borders; for these, we assign the value of their nearest grid-cell centroid rather than attempting to average over an empty set of cells.
+Rainfall is extended for 2005--2024 using the NASA/NOAA Global Precipitation Climatology Project (GPCP) Monthly Precipitation Climate Data Record, version 2.3 \citep{huffman1997gpcp}. This record reports rainfall on a $2.5^{\circ}\times2.5^{\circ}$ grid in mm/day. Each monthly grid is converted to a monthly total (multiplying by days in month) and aggregated to an annual total. The result is spatially joined to country boundaries from the Natural Earth 1:50m Admin-0 dataset. Small countries whose land area falls between grid cells have no grid-cell center within their borders. Therefore, we use the value from the nearest grid cell's center point instead of attempting to average over an empty set of cells.
 
 When building this pipeline, we discovered and corrected two bugs that had silently zeroed out or misattributed rainfall for a subset of countries in earlier drafts of this project. Table B-2 documents both bugs, the tables and figures they affected, and the quantified effect of the fix. Both corrections are reflected in every result reported in this paper and its supplemental materials.
 
@@ -621,7 +626,7 @@ Added an explicit \texttt{ZAR}$\leftrightarrow$\texttt{COD} remap before all Wor
 \end{adjustbox}
 \end{table}
 
-Table B-3 records the coverage decision that governs the merged panel: rainfall and GDP could in principle be extended through 2024 and 2023 respectively, but the panel's binding constraint is democracy, whose Polity V coverage ends in 2018.
+Table B-3 records the coverage decision behind the merged panel: rainfall and GDP could in principle be extended through 2024 and 2023 respectively, but the panel's binding constraint is democracy, whose Polity V coverage ends in 2018.
 
 \begin{table}[H]
 \centering
@@ -651,7 +656,7 @@ Rainfall (GPCP) & 1981--2004 & 2005--2024 & All 2024 months confirmed available 
 
 To check that the extension pipeline reproduces \citeauthor{bruckner2011rain}'s own values, not merely that it is internally consistent, we rebuild each of the three variables' 1981--2004 series independently, using exactly the extension-period methodology. The result is compared to the original data, year by year. Figures B-1--B-3 and Tables B-4--B-6 report the comparison; the underlying code is in \texttt{data\_validation.ipynb}.
 
-\textbf{Rainfall.} The reconstructed GPCP v2.3 series tracks the original GPCP v2.0/2.1 series closely from 1981--1990 (within $\pm5\%$, with no consistent direction), then diverges systematically upward from 1991 onward, peaking at roughly $+16\%$ around 2001 and narrowing to $+9.9\%$ by 2004 (Table B-4; median absolute difference over the full overlap is 6.2\%, mean 7.3\%). GPCP v2.3 is a reprocessed climate data record that incorporates additional gauge stations and satellite-calibration adjustments made after the original v2.0/2.1 release. The divergence therefore reflects a genuine data revision by the provider rather than a defect in our aggregation, which we verified directly against the raw NetCDF files.
+\textbf{Rainfall.} The reconstructed GPCP v2.3 series tracks the original GPCP v2.0/2.1 series closely from 1981--1990 (within $\pm5\%$, with no consistent direction). It then diverges systematically upward from 1991 onward, peaking at roughly $+16\%$ around 2001 and narrowing to $+9.9\%$ by 2004 (Table B-4; median absolute difference over the full overlap is 6.2\%, mean 7.3\%). GPCP v2.3 is a reprocessed climate data record that incorporates additional gauge stations and satellite-calibration adjustments made after the original v2.0/2.1 release. The divergence therefore reflects a genuine data revision by the provider rather than a defect in our aggregation, which we verified directly against the raw NetCDF files.
 
 \begin{table}[H]
 \centering
@@ -840,7 +845,7 @@ Year & Orig.\ & Recon.\ & Diff & Year & Orig.\ & Recon.\ & Diff \\
 \end{minipage}
 \end{figure}
 
-None of the three discrepancies documented in this appendix reflects a coding defect in our reconstruction pipeline; each is attributable to a genuine revision made by the respective data provider since \citeauthor{bruckner2011rain}'s original data were assembled. Because rainfall and GDP are each spliced at the same 2004/2005 boundary the merged panel uses to switch from the original data to the extension, we test directly whether either splice drives our headline structural-break finding in \ref{Appendix_D}.
+None of the three discrepancies documented in this appendix reflects a coding defect in our reconstruction pipeline; each is attributable to a genuine revision made by the respective data provider after \citeauthor{bruckner2011rain} assembled their original data. Because rainfall and GDP are each spliced at the same 2004/2005 boundary that the merged panel uses to switch from the original data to the extension, we test directly whether either splice drives our headline structural-break finding in \ref{Appendix_D}.
 
 \section{Variable Definitions, Sample, and Descriptive Statistics\label{Appendix_C}}
 
