@@ -20,6 +20,23 @@
 \usepackage{float}         % [H] placement
 \usepackage{setspace}      % \begin{spacing}{...}
 \usepackage{xcolor}
+\usepackage{pgfplots}      % native TikZ data plots (replaces the PNG figures)
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
+
+% ---------------------------------------------------------------------
+%  COLORBLIND-SAFE PALETTE (Okabe & Ito, 2008)
+%  Used for every figure in the Supplemental Materials.
+% ---------------------------------------------------------------------
+\definecolor{OIblack}{HTML}{000000}
+\definecolor{OIorange}{HTML}{E69F00}
+\definecolor{OIskyblue}{HTML}{56B4E9}
+\definecolor{OIgreen}{HTML}{009E73}
+\definecolor{OIyellow}{HTML}{F0E442}
+\definecolor{OIblue}{HTML}{0072B2}
+\definecolor{OIvermillion}{HTML}{D55E00}
+\definecolor{OIpurple}{HTML}{CC79A7}
+\definecolor{OIgray}{HTML}{999999}
 
 % ---------------------------------------------------------------------
 %  BLINDING SWITCH
@@ -48,6 +65,11 @@
     Author 3\thanks{Address 3. \faEnvelopeO: \href{mailto:author3@email.edu}{author3@email.edu}.} \and
     Author 4\thanks{Address 4. \faEnvelopeO: \href{mailto:author4@email.edu}{author4@email.edu}.}%
 }
+
+% Plain-text author list (no \and, no \thanks) for use in running prose,
+% e.g. the Supplemental Materials opening paragraph -- \paperauthors itself
+% only parses correctly inside \author{...}.
+\newcommand{\paperauthorsprose}{Author 1, Author 2, Author 3, and Author 4}
 
 % =====================================================================
 \begin{document}
@@ -207,13 +229,13 @@ Summarize the findings, discuss limitations, and suggest directions for future w
 \begin{bibunit}[jpe]
 \begin{spacing}{1.45}
 
-\noindent This is the supplementary material for \paperauthors\ (``\papertitle,'' \the\year), which replicates and extends \citet{bruckner2011rain} for 41 Sub-Saharan African (SSA) countries, extending their original 1981--2004 panel to 2024. The material is organized in five appendices. \ref{Appendix_A} reports the full replication and extension of every table in \citet{bruckner2011rain} (Tables III--IX), each estimated first on the original 1981--2004 sample to confirm reproduction of the published estimates and then on the sample extended to 2024, together with a three-sample robustness check that isolates the source of any change. \ref{Appendix_B} traces the provenance of the three core variables --- democracy, real GDP per capita, and rainfall --- from their original sources through the corrections applied along the way, and checks each reconstructed series against \citeauthor{bruckner2011rain}'s original data over the 1981--2004 overlap. \ref{Appendix_C} defines every variable, reports descriptive statistics, and lists the full country sample. \ref{Appendix_D} works through why the paper's instrument, Log rainfall, $t-1$, is strong and exogenous before 2004 but not after: relevance and exogeneity tests, Anderson--Rubin confidence sets, a battery of alternative rainfall instruments, and a formal dating of the break to 2007 that survives even when the underlying data vintages are not spliced.
+\noindent This is the supplementary material for \paperauthorsprose\ (``\papertitle,'' \the\year), which replicates and extends \citet{bruckner2011rain} for 41 Sub-Saharan African (SSA) countries, extending their original 1981--2004 panel to 2024. The material is organized in five appendices. \ref{Appendix_A} reports the full replication and extension of every table in \citet{bruckner2011rain} (Tables III--IX), each estimated first on the original 1981--2004 sample to confirm reproduction of the published estimates and then on the sample extended to 2024, together with a three-sample robustness check that isolates the source of any change. \ref{Appendix_B} traces how the three core variables --- democracy, real GDP per capita, and rainfall --- were built from their original sources, including the corrections applied along the way. It then checks each reconstructed series against \citeauthor{bruckner2011rain}'s original data over the 1981--2004 overlap. \ref{Appendix_C} defines every variable, reports descriptive statistics, and lists the full country sample. \ref{Appendix_D} works through why the paper's instrument --- the log of rainfall lagged one period --- is strong and exogenous before 2004 but not after. It reports relevance and exogeneity tests, Anderson--Rubin confidence sets, a battery of alternative rainfall instruments, and a formal dating of the break to 2007 that survives even when the underlying data vintages are not spliced.
 
-Finally, \ref{Appendix_E} traces the mechanism behind the one relationship that strengthens under extension --- rainfall's direct effect on democratic transitions --- decomposing it into its country/year drivers and testing four candidate transmission channels.
+Finally, \ref{Appendix_E} traces the mechanism behind the one relationship that strengthens under extension: rainfall's direct effect on democratic transitions. It decomposes this effect into its country/year drivers and tests four candidate transmission channels.
 
 \section{Full Extended-Sample Replication Tables\label{Appendix_A}}
 
-This appendix reports our replication and extension of Tables III--IX of \citet{bruckner2011rain} in full. For every table, Panel A reproduces the original specification on the original 1981--2004 sample, verifying our reconstruction of the data and code against the published estimates, and Panel B repeats the identical specification on the sample extended to 2024. All specifications include country fixed effects, country-specific linear time trends, and year fixed effects, and cluster standard errors at the country level, exactly as in \citet{bruckner2011rain}. For the instrumental-variables tables (Tables A-3, A-4, and A-7) the instrument is always \textit{Log rainfall, $t-1$}, and we report both the conventional 2SLS standard error and the Anderson--Rubin \citep{andersonrubin1949} $p$-value, which is robust to weak instruments; the latter is the more reliable guide to significance whenever \ref{Appendix_D} indicates the first stage is not strong by conventional standards.
+This appendix reports our replication and extension of Tables III--IX of \citet{bruckner2011rain} in full. For every table, Panel A reproduces the original specification on the original 1981--2004 sample, verifying our reconstruction of the data and code against the published estimates, and Panel B repeats the identical specification on the sample extended to 2024. All specifications include country fixed effects, country-specific linear time trends, and year fixed effects, and cluster standard errors at the country level, exactly as in \citet{bruckner2011rain}. For the instrumental-variables tables (Tables A-3, A-4, and A-7) the instrument is always \textit{Log rainfall, $t-1$}. We report both the conventional 2SLS standard error and the Anderson--Rubin \citep{andersonrubin1949} $p$-value, which is robust to weak instruments. The Anderson--Rubin $p$-value is the more reliable guide to significance whenever \ref{Appendix_D} indicates the first stage is not strong by conventional standards.
 
 \begin{table}[H]
 \centering
@@ -481,6 +503,8 @@ $N$, extended  & 1{,}769 & 1{,}769 & 1{,}691 & 1{,}001 \\
 \end{adjustbox}
 \end{table}
 
+The extended panel changes two things about the data at once: it lengthens the sample to 2024, and, because Polity stopped publishing new releases after 2018, it switches the democracy measure to a rescaled V-Dem series for the last six years (\ref{Appendix_B}). Table A-9 separates these two changes to determine which one, if either, is responsible for the attenuation documented above. It compares three samples: the original 1981--2004 data; a ``Polity-only'' sample that extends the panel to 2018 using Polity IV/V alone, without yet splicing in V-Dem; and the full 1981--2024 sample. If a result already changes by 1981--2018, before any V-Dem data enter the panel, the V-Dem splice cannot be the cause.
+
 \begin{table}[H]
 \centering
 \begin{adjustbox}{max width=\textwidth}
@@ -530,11 +554,11 @@ $N$          & 700 & 930 & 1{,}001 \\
 
 \section{Data Construction, Corrections, and Validation\label{Appendix_B}}
 
-This appendix documents how the three core variables --- democracy, real GDP per capita, and rainfall --- were extended beyond \citeauthor{bruckner2011rain}'s (\citeyear{bruckner2011rain}) original 1981--2004 coverage, the data-processing errors that surfaced along the way, and a validation exercise that reconstructs each variable's own 1981--2004 values from our extension pipeline and compares them, year by year, against \citeauthor{bruckner2011rain}'s original data.
+This appendix documents how the three core variables --- democracy, real GDP per capita, and rainfall --- were extended beyond \citeauthor{bruckner2011rain}'s (\citeyear{bruckner2011rain}) original 1981--2004 coverage and the data-processing errors that surfaced along the way. It closes with a validation exercise that reconstructs each variable's own 1981--2004 values from our extension pipeline and compares them, year by year, against \citeauthor{bruckner2011rain}'s original data.
 
 \subsection*{Appendix B.1\quad Democracy: Polity V and Rescaled V-Dem}
 
-Democracy is extended in two stages. From 2005--2018 we use Polity V \citep{marshall2020polity5} directly, on the same $-10$ to $+10$ Polity2 scale as the original data; from 2019--2024, following the discontinuation of new Polity releases, we splice in the V-Dem dataset \citep{coppedge2024vdem}, rescaled onto the Polity2 metric. The rescaling maps each Polity component to its closest V-Dem analogue (Polity2 to \texttt{v2x\_polyarchy}, the Electoral Democracy Index; Exconst to \texttt{v2xlg\_legcon}, legislative constraints on the executive; Polcomp and Exrec to \texttt{v2xel\_frefair}, the free-and-fair-elections index), then matches the standard deviation of year-on-year \emph{changes} in each V-Dem series to the standard deviation of year-on-year changes in the corresponding Polity series over the 1982--2018 overlap, and cumulates the rescaled changes forward from each country's last available Polity value. For Polity2 the scaling factor is $\sigma(\Delta\text{Polity2})/\sigma(\Delta v2x\_polyarchy) = 1.8708/0.0445 = 42.08$; corresponding factors for Exconst, Polcomp, and Exrec are 59.77, 49.58, and 17.93. All rescaled series are clipped to their native Polity ranges ($-10$ to 10 for Polity2; 1--7, 1--10, and 1--8 for the concept scores).
+Democracy is extended in two stages. From 2005--2018 we use Polity V \citep{marshall2020polity5} directly, on the same $-10$ to $+10$ Polity2 scale as the original data; from 2019--2024, following the discontinuation of new Polity releases, we splice in the V-Dem dataset \citep{coppedge2024vdem}, rescaled onto the Polity2 metric. The rescaling procedure maps each Polity component to its closest V-Dem analogue: Polity2 to \texttt{v2x\_polyarchy} (the Electoral Democracy Index), Exconst to \texttt{v2xlg\_legcon} (legislative constraints on the executive), and Polcomp and Exrec to \texttt{v2xel\_frefair} (the free-and-fair-elections index). Each V-Dem series is then rescaled so that the standard deviation of its year-on-year changes matches the standard deviation of year-on-year changes in the corresponding Polity series over the 1982--2018 overlap, and the rescaled changes are cumulated forward from each country's last available Polity value. For Polity2 the scaling factor is $\sigma(\Delta\text{Polity2})/\sigma(\Delta v2x\_polyarchy) = 1.8708/0.0445 = 42.08$; corresponding factors for Exconst, Polcomp, and Exrec are 59.77, 49.58, and 17.93. All rescaled series are clipped to their native Polity ranges ($-10$ to 10 for Polity2; 1--7, 1--10, and 1--8 for the concept scores).
 
 Table B-1 reports the correlation between Polity2 and its V-Dem analogue over the full 1981--2018 overlap, which justifies using \texttt{v2x\_polyarchy} as the rescaling anchor.
 
@@ -568,13 +592,13 @@ Exrec    & \texttt{v2x\_elecoff} (Elected Officials)       & 0.163 & 0.284 \\
 
 \subsection*{Appendix B.2\quad Real GDP per Capita: Penn World Table 11.0}
 
-Real GDP per capita is extended for 2005--2023 using Penn World Table (PWT) 11.0 \citep{feenstra2015pwt}, constructed as $\text{lgdp} = \log(\text{rgdpe}/\text{pop})$, where \texttt{rgdpe} is expenditure-side real GDP and \texttt{pop} is population, both from PWT's \texttt{Data} sheet. PWT 11.0 reports levels in 2021 constant PPP dollars, whereas the original \citeauthor{bruckner2011rain} data use PWT 6.2's 2005 USD base; within-version growth rates are unaffected by this choice, but the \emph{level} of GDP per capita is not directly comparable across the 2004/2005 splice point, a fact we return to in Appendix B.4 and use as the basis for the vintage-splice robustness check in \ref{Appendix_D}. Real GDP per capita is not available past 2023 in the current PWT release, so \texttt{lgdp} for 2024 is missing by construction; its one- and two-period lags are still available for all 1981--2024 country-years.
+Real GDP per capita is extended for 2005--2023 using Penn World Table (PWT) 11.0 \citep{feenstra2015pwt}. It is constructed as $\text{lgdp} = \log(\text{rgdpe}/\text{pop})$, where \texttt{rgdpe} is expenditure-side real GDP and \texttt{pop} is population, both taken from PWT's \texttt{Data} sheet. PWT 11.0 reports levels in 2021 constant PPP dollars, whereas the original \citeauthor{bruckner2011rain} data use PWT 6.2's 2005 USD base. Within-version growth rates are unaffected by this choice, but the \emph{level} of GDP per capita is not directly comparable across the 2004/2005 splice point. We return to this fact in Appendix B.4 and use it as the basis for the vintage-splice robustness check in \ref{Appendix_D}. Real GDP per capita is not available past 2023 in the current PWT release, so \texttt{lgdp} for 2024 is missing by construction. Its one- and two-period lags, however, are still available for all 1981--2024 country-years.
 
 \subsection*{Appendix B.3\quad Rainfall: GPCP v2.3 and the Longitude-Convention Bug}
 
-Rainfall is extended for 2005--2024 using the NASA/NOAA Global Precipitation Climatology Project (GPCP) Monthly Precipitation Climate Data Record, version 2.3 \citep{huffman1997gpcp}, on a $2.5^{\circ}\times2.5^{\circ}$ grid reported in mm/day. Each monthly grid is converted to a monthly total (multiplying by days in month), summed to an annual total, and spatially joined to country polygons from the Natural Earth 1:50m Admin-0 boundaries; small countries whose land area falls between grid cells are assigned their nearest grid-cell centroid rather than an empty spatial average.
+Rainfall is extended for 2005--2024 using the NASA/NOAA Global Precipitation Climatology Project (GPCP) Monthly Precipitation Climate Data Record, version 2.3 \citep{huffman1997gpcp}. This record reports rainfall on a $2.5^{\circ}\times2.5^{\circ}$ grid in mm/day. Each monthly grid is converted to a monthly total (multiplying by days in month) and summed to an annual total. The result is spatially joined to country polygons from the Natural Earth 1:50m Admin-0 boundaries. Small countries whose land area falls between grid cells have no cell centroid within their borders; for these, we assign the value of their nearest grid-cell centroid rather than attempting to average over an empty set of cells.
 
-While building this pipeline we discovered and corrected two bugs that had silently zeroed out or misattributed rainfall for a subset of countries in earlier drafts of this project. Table B-2 documents both, the tables and figures they affected, and the quantified effect of the fix; both corrections are reflected in every result reported in this paper and its supplemental materials.
+When building this pipeline, we discovered and corrected two bugs that had silently zeroed out or misattributed rainfall for a subset of countries in earlier drafts of this project. Table B-2 documents both bugs, the tables and figures they affected, and the quantified effect of the fix. Both corrections are reflected in every result reported in this paper and its supplemental materials.
 
 \begin{table}[H]
 \centering
@@ -625,9 +649,9 @@ Rainfall (GPCP) & 1981--2004 & 2005--2024 & All 2024 months confirmed available 
 
 \subsection*{Appendix B.4\quad Validation Against the Original Data}
 
-To check that the extension pipeline reproduces \citeauthor{bruckner2011rain}'s own values rather than merely being internally consistent, we rebuild each of the three variables' 1981--2004 series independently, using exactly the extension-period methodology, and compare the result to the original data year by year. Figures B-1--B-3 and Tables B-4--B-6 report the comparison; the underlying code is in \texttt{data\_validation.ipynb}.
+To check that the extension pipeline reproduces \citeauthor{bruckner2011rain}'s own values, not merely that it is internally consistent, we rebuild each of the three variables' 1981--2004 series independently, using exactly the extension-period methodology. The result is compared to the original data, year by year. Figures B-1--B-3 and Tables B-4--B-6 report the comparison; the underlying code is in \texttt{data\_validation.ipynb}.
 
-\textbf{Rainfall.} The reconstructed GPCP v2.3 series tracks the original GPCP v2.0/2.1 series closely from 1981--1990 (within $\pm5\%$, with no consistent direction), then diverges systematically upward from 1991 onward, peaking at roughly $+16\%$ around 2001 and narrowing to $+9.9\%$ by 2004 (Table B-4; median absolute difference over the full overlap is 6.2\%, mean 7.3\%). This pattern matches \citeauthor{bruckner2011rain}'s own documented caveat that GPCP's underlying gauge density fell from roughly 32 stations per country in the 1980s to 18 in the 1990s and 8 after 2000, and is consistent with GPCP v2.3 being a reprocessed climate data record that incorporates gauge stations recovered after the original v2.0/2.1 release --- a genuine data revision by the provider, not a defect in our aggregation, which we verified directly against the raw NetCDF files.
+\textbf{Rainfall.} The reconstructed GPCP v2.3 series tracks the original GPCP v2.0/2.1 series closely from 1981--1990 (within $\pm5\%$, with no consistent direction), then diverges systematically upward from 1991 onward, peaking at roughly $+16\%$ around 2001 and narrowing to $+9.9\%$ by 2004 (Table B-4; median absolute difference over the full overlap is 6.2\%, mean 7.3\%). GPCP v2.3 is a reprocessed climate data record that incorporates additional gauge stations and satellite-calibration adjustments made after the original v2.0/2.1 release. The divergence therefore reflects a genuine data revision by the provider rather than a defect in our aggregation, which we verified directly against the raw NetCDF files.
 
 \begin{table}[H]
 \centering
@@ -663,7 +687,26 @@ Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/validation_rainfall.png}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.85\textwidth, height=0.4\textwidth,
+    xlabel={Year}, ylabel={mm/year},
+    xmin=1980, xmax=2025, ymin=800, ymax=1200,
+    xtick={1980,1990,2000,2010,2020}, grid=major, grid style={gray!15},
+    axis lines=left, tick label style={font=\footnotesize}, label style={font=\footnotesize},
+    legend pos=south east, legend style={font=\footnotesize, draw=none, fill=none, row sep=-2pt},
+]
+\addplot[OIblue, thick, mark=none] coordinates {
+(1981,1055.5)(1982,1074.2)(1983,891.8)(1984,981.1)(1985,1051.0)(1986,1020.6)(1987,1003.5)(1988,1125.0)(1989,1137.1)(1990,976.7)(1991,989.5)(1992,879.2)(1993,954.6)(1994,957.4)(1995,950.7)(1996,965.4)(1997,943.8)(1998,881.8)(1999,968.5)(2000,940.9)(2001,893.3)(2002,893.0)(2003,906.7)(2004,926.7)
+};
+\addlegendentry{Original (B\&C)}
+\addplot[OIorange, thick, dashed, mark=none] coordinates {
+(1981,1052.4)(1982,1019.7)(1983,901.1)(1984,984.3)(1985,1037.9)(1986,1015.1)(1987,986.0)(1988,1088.7)(1989,1100.7)(1990,970.6)(1991,1031.3)(1992,944.5)(1993,997.8)(1994,1051.9)(1995,1020.6)(1996,1050.6)(1997,1096.5)(1998,1040.9)(1999,1095.0)(2000,1072.6)(2001,1041.6)(2002,1013.9)(2003,1035.0)(2004,1018.3)(2005,943.44)(2006,1119.78)(2007,1026.11)(2008,1062.13)(2009,1004.64)(2010,1058.95)(2011,1019.82)(2012,1063.73)(2013,1027.34)(2014,997.39)(2015,921.85)(2016,985.12)(2017,1031.04)(2018,1001.96)(2019,1040.33)(2020,1011.98)(2021,935.79)(2022,993.91)(2023,1003.30)(2024,944.74)
+};
+\addlegendentry{Reconstructed (this pipeline)}
+\draw[OIgray, densely dotted] (axis cs:2004.5,800) -- (axis cs:2004.5,1200);
+\end{axis}
+\end{tikzpicture}
 \caption{Rainfall: Original vs.\ Reconstructed (SSA Mean)}
 \label{fig:B1}
 \begin{minipage}{0.9\textwidth}
@@ -671,7 +714,7 @@ Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
 \end{minipage}
 \end{figure}
 
-\textbf{Real GDP per capita.} Unlike rainfall, the reconstructed PWT 11.0 series is systematically \emph{above} the original PWT 6.2 series in every overlap year, by $+161\%$ in 1981 narrowing steadily to $+29\%$ by 2003 and to $-7\%$ by 2004 (Table B-5). This is the expected signature of successive International Comparison Program (ICP) benchmark revisions --- PWT 11.0 incorporates the 2005 and 2011 ICP rounds that PWT 6.2 predates, and each revision revises the earliest, most sparsely price-surveyed years by the largest amount, which is exactly the shrinking-gap pattern observed here. Because this gap is largest precisely where the panel is \emph{not} spliced (the gap nearly closes by 2004, the actual splice year), the level discontinuity introduced into the merged panel is smaller than the mid-sample gap alone would suggest; we quantify its effect on our structural-break finding directly in \ref{Appendix_D}.
+\textbf{Real GDP per capita.} Unlike rainfall, the reconstructed PWT 11.0 series is systematically \emph{above} the original PWT 6.2 series in every overlap year, by $+161\%$ in 1981 narrowing steadily to $+29\%$ by 2003 and to $-7\%$ by 2004 (Table B-5). This is the expected signature of successive International Comparison Program (ICP) benchmark revisions. PWT 11.0 incorporates the 2005 and 2011 ICP rounds that PWT 6.2 predates. Each revision revises the earliest, most sparsely price-surveyed years by the largest amount, which is exactly the shrinking-gap pattern observed here. Because this gap is largest precisely where the panel is \emph{not} spliced (the gap nearly closes by 2004, the actual splice year), the level discontinuity introduced into the merged panel is smaller than the mid-sample gap alone would suggest; we quantify its effect on our structural-break finding directly in \ref{Appendix_D}.
 
 \begin{table}[H]
 \centering
@@ -707,7 +750,26 @@ Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/validation_gdp.png}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.85\textwidth, height=0.4\textwidth,
+    xlabel={Year}, ylabel={PPP \$ per capita},
+    xmin=1980, xmax=2025, ymin=1000, ymax=4800,
+    xtick={1980,1990,2000,2010,2020}, grid=major, grid style={gray!15},
+    axis lines=left, tick label style={font=\footnotesize}, label style={font=\footnotesize},
+    legend pos=north west, legend style={font=\footnotesize, draw=none, fill=none, row sep=-2pt},
+]
+\addplot[OIblue, thick, mark=none] coordinates {
+(1981,1126.5)(1982,1173.5)(1983,1209.2)(1984,1275.8)(1985,1311.6)(1986,1332.1)(1987,1366.4)(1988,1423.4)(1989,1514.0)(1990,1583.2)(1991,1647.4)(1992,1647.0)(1993,1685.1)(1994,1694.9)(1995,1738.3)(1996,1812.0)(1997,1871.6)(1998,1873.5)(1999,1958.4)(2000,2104.9)(2001,2176.3)(2002,2217.3)(2003,2306.0)(2004,3328.9)
+};
+\addlegendentry{Original (PWT 6.2)}
+\addplot[OIorange, thick, dashed, mark=none] coordinates {
+(1981,2945.1)(1982,2848.5)(1983,2861.4)(1984,2881.8)(1985,2927.3)(1986,2748.5)(1987,2684.5)(1988,2686.5)(1989,2761.8)(1990,2700.4)(1991,2717.2)(1992,2629.2)(1993,2629.2)(1994,2649.7)(1995,2697.0)(1996,2851.1)(1997,2804.3)(1998,2726.2)(1999,2818.5)(2000,2866.0)(2001,2862.2)(2002,2910.8)(2003,2965.3)(2004,3089.4)(2005,3378.34)(2006,3541.93)(2007,3620.10)(2008,3759.34)(2009,3592.03)(2010,3940.90)(2011,4203.15)(2012,4239.74)(2013,4177.46)(2014,4373.48)(2015,4360.02)(2016,4483.45)(2017,4586.68)(2018,4440.52)(2019,4523.61)(2020,4285.11)(2021,4452.40)(2022,4625.66)(2023,4627.70)
+};
+\addlegendentry{Reconstructed (PWT 11.0)}
+\draw[OIgray, densely dotted] (axis cs:2004.5,1000) -- (axis cs:2004.5,4800);
+\end{axis}
+\end{tikzpicture}
 \caption{Real GDP per Capita: Original vs.\ Reconstructed (SSA Mean)}
 \label{fig:B2}
 \begin{minipage}{0.9\textwidth}
@@ -715,7 +777,7 @@ Year & Orig.\ & Recon.\ & \%diff & Year & Orig.\ & Recon.\ & \%diff \\
 \end{minipage}
 \end{figure}
 
-\textbf{Democracy.} The reconstructed Polity2 series is the tightest validation of the three, with a mean absolute difference of only 0.13 points on the $-10$ to $+10$ scale over the full 1981--2004 overlap (Table B-6), and it continues smoothly into the extension period, including across the 2018/2019 join where the source switches from Polity V to rescaled V-Dem.
+\textbf{Democracy.} The reconstructed Polity2 series is the tightest validation of the three, with a mean absolute difference of only 0.13 points on the $-10$ to $+10$ scale over the full 1981--2004 overlap (Table B-6). The series continues smoothly into the extension period, including across the 2018/2019 join where the source switches from Polity V to rescaled V-Dem.
 
 \begin{table}[H]
 \centering
@@ -743,7 +805,7 @@ Year & Orig.\ & Recon.\ & Diff & Year & Orig.\ & Recon.\ & Diff \\
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \footnotesize
-\item \textit{Notes:} Mean absolute difference over 1981--2004: 0.13 points. Reconstructed series continues through 2024 (peaking near 3.35 in 2018, then declining to 0.51 by 2024), spanning the 2018/2019 Polity-V-to-V-Dem source switch without a visible discontinuity (Figure B-3).
+\item \textit{Notes:} Mean absolute difference over 1981--2004: 0.13 points. Reconstructed series continues through 2024 (peaking near 3.24 in 2018, then declining to 0.51 by 2024), spanning the 2018/2019 Polity-V-to-V-Dem source switch without a visible discontinuity (Figure B-3).
 \end{tablenotes}
 \end{threeparttable}
 \end{adjustbox}
@@ -751,7 +813,26 @@ Year & Orig.\ & Recon.\ & Diff & Year & Orig.\ & Recon.\ & Diff \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/validation_democracy.png}
+\begin{tikzpicture}
+\begin{axis}[
+    width=0.85\textwidth, height=0.4\textwidth,
+    xlabel={Year}, ylabel={Polity2 score},
+    xmin=1980, xmax=2025, ymin=-7, ymax=3.7,
+    xtick={1980,1990,2000,2010,2020}, grid=major, grid style={gray!15},
+    axis lines=left, tick label style={font=\footnotesize}, label style={font=\footnotesize},
+    legend pos=south east, legend style={font=\footnotesize, draw=none, fill=none, row sep=-2pt},
+]
+\addplot[OIblue, thick, mark=none] coordinates {
+(1981,-5.08)(1982,-5.22)(1983,-5.35)(1984,-5.78)(1985,-5.75)(1986,-5.72)(1987,-5.88)(1988,-5.88)(1989,-6.17)(1990,-5.60)(1991,-3.15)(1992,-1.88)(1993,-0.95)(1994,-0.33)(1995,-0.10)(1996,-0.23)(1997,-0.55)(1998,-0.68)(1999,0.10)(2000,0.72)(2001,1.10)(2002,1.44)(2003,1.21)(2004,1.29)
+};
+\addlegendentry{Original}
+\addplot[OIorange, thick, dashed, mark=none] coordinates {
+(1981,-4.95)(1982,-5.20)(1983,-5.28)(1984,-5.60)(1985,-5.78)(1986,-5.80)(1987,-5.90)(1988,-5.83)(1989,-6.12)(1990,-5.05)(1991,-2.95)(1992,-1.88)(1993,-1.00)(1994,-0.61)(1995,-0.39)(1996,-0.49)(1997,-0.61)(1998,-0.44)(1999,0.34)(2000,0.80)(2001,1.10)(2002,1.39)(2003,1.22)(2004,1.46)(2005,1.829)(2006,1.951)(2007,2.122)(2008,1.951)(2009,1.927)(2010,2.195)(2011,2.500)(2012,2.267)(2013,2.634)(2014,2.829)(2015,2.984)(2016,2.885)(2017,3.112)(2018,3.235)(2019,2.875)(2020,2.580)(2021,2.013)(2022,1.565)(2023,1.221)(2024,0.514)
+};
+\addlegendentry{Reconstructed}
+\draw[OIgray, densely dotted] (axis cs:2004.5,-7) -- (axis cs:2004.5,3.7);
+\end{axis}
+\end{tikzpicture}
 \caption{Democracy (Polity2): Original vs.\ Reconstructed (SSA Mean)}
 \label{fig:B3}
 \begin{minipage}{0.9\textwidth}
@@ -932,7 +1013,7 @@ Extreme rainfall dummy, p20/p80 (\texttt{rain\_extreme\_l2}) & 0.65 & 873 & 0.08
 
 \subsection*{Appendix D.4\quad Structural Break in the First Stage}
 
-We test for a break in the rainfall$\to$GDP first stage using both a Chow test at the a priori 2004 splice date and an Andrews \citep{andrews1993tests} sup-Wald test that estimates the breakpoint from the data, searching over 1990--2015.
+We test for a break in the rainfall$\to$GDP first stage in two ways. A Chow test checks the a priori 2004 splice date, while an Andrews \citep{andrews1993tests} sup-Wald test estimates the breakpoint directly from the data, searching over 1990--2015.
 
 \begin{table}[H]
 \centering
@@ -975,7 +1056,7 @@ Candidate break year & Pre-break coef.\ & Post-break coef.\ & Wald $t$ ($p$) \\
 
 \subsection*{Appendix D.5\quad Is the Break a Vintage-Splicing Artifact?}
 
-Both real GDP per capita and rainfall are spliced across two data vintages at the panel's 2004/2005 boundary (Appendix B.4), raising the concern that the 2007 break identified above could be a statistical artifact of the splice rather than a real economic phenomenon. We address this directly by rebuilding each series from a single vintage spanning the entire 1981--2024 period --- PWT 11.0 throughout for GDP, and GPCP v2.3 throughout for rainfall --- and re-running both the Chow and Andrews tests on every combination of spliced/single-vintage series.
+Both real GDP per capita and rainfall are spliced across two data vintages at the panel's 2004/2005 boundary (Appendix B.4). This raises a natural concern: the 2007 break identified above could be a statistical artifact of the splice rather than a real economic phenomenon. We test this directly. Each series is rebuilt from a single vintage spanning the entire 1981--2024 period: PWT 11.0 throughout for GDP, and GPCP v2.3 throughout for rainfall. Both the Chow and Andrews tests are then re-run on every combination of spliced and single-vintage series.
 
 \begin{table}[H]
 \centering
@@ -1003,7 +1084,7 @@ Both single-vintage (no splice anywhere)   & 2007 & 1.774 & 0.0761* \\
 
 \subsection*{Appendix D.6\quad Agricultural Share of GDP and First-Stage Strength}
 
-The rainfall$\to$GDP first stage is meant to capture rainfall's effect on economies with a substantial agricultural sector. We test whether the post-2004 collapse in first-stage strength (Appendix D.4) is concentrated in economies that industrialized fastest, by splitting the sample at the median 1981--2004 agricultural share of GDP (27.6\%) into 20 high-agriculture and 20 low-agriculture countries.
+The rainfall$\to$GDP first stage is meant to capture rainfall's effect on economies with a substantial agricultural sector. We test whether the post-2004 collapse in first-stage strength (Appendix D.4) is concentrated in economies that industrialized fastest. We split the sample at the median 1981--2004 agricultural share of GDP (27.6\%) into 20 high-agriculture and 20 low-agriculture countries.
 
 \begin{table}[H]
 \centering
@@ -1089,7 +1170,67 @@ Baseline + Irrigation-adjusted & 2.071 (0.1501) & $-$2.847 \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/instrument_comparison.png}
+\begin{tikzpicture}
+\begin{groupplot}[
+    group style={group size=2 by 2, horizontal sep=2.3cm, vertical sep=2.1cm},
+    width=0.46\textwidth, height=0.32\textwidth,
+    tick label style={font=\footnotesize}, label style={font=\footnotesize},
+    title style={font=\footnotesize},
+]
+
+\nextgroupplot[
+    ybar, bar width=12pt,
+    symbolic x coords={Baseline,ENSO-orthog.,Irrigation-adj.,Neighbor},
+    xtick=data, x tick label style={font=\scriptsize, rotate=20, anchor=east},
+    ylabel={$F$-statistic}, ymin=0, ymax=20,
+    title={(a) First-Stage $F$-Statistics},
+    nodes near coords, nodes near coords style={font=\scriptsize},
+]
+\addplot[fill=OIskyblue, draw=OIblack] coordinates {(Baseline,2.40) (ENSO-orthog.,2.32) (Irrigation-adj.,2.46) (Neighbor,0.06)};
+\draw[OIgray, densely dashed] (axis cs:Baseline,16.38) -- (axis cs:Neighbor,16.38);
+\node[font=\scriptsize, anchor=south, fill=white, inner sep=1pt] at (axis cs:Irrigation-adj.,16.38) {Stock--Yogo 10\% CV};
+
+\nextgroupplot[
+    ylabel={$F$-statistic}, xlabel={10-year window (end year shown)},
+    xmin=1990, xmax=2024, ymin=0, ymax=11,
+    title={(b) Rolling 10-Year First-Stage $F$ (Baseline)},
+    axis lines=left,
+]
+\addplot[OIblue, thick, mark=none] coordinates {
+(1990,6.40)(1991,7.21)(1992,9.30)(1993,3.44)(1994,4.80)(1995,5.78)(1996,7.51)(1997,5.83)(1998,1.50)(1999,1.15)(2000,3.35)(2001,3.97)(2002,2.06)(2003,0.05)(2004,0.05)(2005,2.23)(2006,0.03)(2007,0.59)(2008,0.37)(2009,0.08)(2010,0.01)(2011,0.29)(2012,0.00)(2013,0.51)(2014,0.00)(2015,1.05)(2016,2.26)(2017,0.00)(2018,0.53)(2019,2.04)(2020,2.78)(2021,1.27)(2022,0.62)(2023,0.01)(2024,0.43)
+};
+\draw[OIgray, densely dashed] (axis cs:1990,10) -- (axis cs:2024,10);
+\node[font=\scriptsize, anchor=south west] at (axis cs:1990,10) {$F=10$};
+\draw[OIvermillion, densely dotted, thick] (axis cs:2007,0) -- (axis cs:2007,11);
+\node[font=\scriptsize, OIvermillion, anchor=south] at (axis cs:2007,11) {Break 2007};
+
+\nextgroupplot[
+    xbar, bar width=10pt,
+    symbolic y coords={Neighbor,Irrigation-adj.,ENSO-orthog.},
+    ytick=data, y tick label style={font=\scriptsize},
+    xlabel={Incremental $F$-statistic (conditional on baseline)}, xmin=0, xmax=13,
+    title={(c) Incremental Relevance Test},
+    nodes near coords, nodes near coords style={font=\scriptsize},
+]
+\addplot[fill=OIgray!50, draw=OIblack] coordinates {(0.67,ENSO-orthog.) (0.24,Neighbor)};
+\addplot[fill=OIorange, draw=OIblack] coordinates {(10.04,Irrigation-adj.)};
+\draw[OIgray, densely dashed] (axis cs:3.84,Neighbor) -- (axis cs:3.84,ENSO-orthog.);
+\node[font=\scriptsize, anchor=west, rotate=90] at (axis cs:3.84,Irrigation-adj.) {$p=0.05$};
+
+\nextgroupplot[
+    xbar, bar width=14pt,
+    symbolic y coords={Base + Irrig.,Base + ENSO},
+    ytick=data, y tick label style={font=\scriptsize},
+    xlabel={$p$-value (H0: both instruments exogenous, df = 1)}, xmin=0, xmax=0.75,
+    title={(d) Sargan--Hansen $J$-Test},
+    nodes near coords, nodes near coords style={font=\scriptsize},
+]
+\addplot[fill=OIskyblue, draw=OIblack] coordinates {(0.1501,Base + Irrig.)};
+\addplot[fill=OIgreen, draw=OIblack] coordinates {(0.5446,Base + ENSO)};
+\draw[OIgray, densely dashed] (axis cs:0.10,Base + Irrig.) -- (axis cs:0.10,Base + ENSO);
+
+\end{groupplot}
+\end{tikzpicture}
 \caption{Instrument Comparison: First-Stage Strength, Stability, and Exogeneity}
 \label{fig:D1}
 \begin{minipage}{0.95\textwidth}
@@ -1099,7 +1240,60 @@ Baseline + Irrigation-adjusted & 2.071 (0.1501) & $-$2.847 \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/instrument_timeseries.png}
+\begin{tikzpicture}
+\begin{groupplot}[
+    group style={group size=2 by 1, horizontal sep=2.3cm},
+    width=0.46\textwidth, height=0.34\textwidth,
+    xlabel={Year}, xmin=1980, xmax=2025, xtick={1980,1990,2000,2010,2020},
+    tick label style={font=\footnotesize}, label style={font=\footnotesize},
+    title style={font=\footnotesize},
+    axis lines=left, grid=major, grid style={gray!15},
+]
+
+\nextgroupplot[
+    ylabel={Log rainfall (mm/year)}, ymin=6.2, ymax=7.15,
+    title={(a) Instrument Levels (SSA Mean)},
+    legend pos=south east, legend style={font=\tiny, draw=none, fill=none, row sep=-2pt},
+]
+\addplot[OIskyblue, thick, mark=none] coordinates {
+(1981,6.831)(1982,6.783)(1983,6.831)(1984,6.807)(1985,6.639)(1986,6.698)(1987,6.802)(1988,6.760)(1989,6.726)(1990,6.881)(1991,6.848)(1992,6.640)(1993,6.690)(1994,6.560)(1995,6.696)(1996,6.713)(1997,6.690)(1998,6.719)(1999,6.711)(2000,6.625)(2001,6.727)(2002,6.671)(2003,6.646)(2004,6.601)(2005,6.637)(2006,6.670)(2007,6.666)(2008,6.859)(2009,6.721)(2010,6.772)(2011,6.738)(2012,6.803)(2013,6.741)(2014,6.792)(2015,6.748)(2016,6.708)(2017,6.615)(2018,6.690)(2019,6.749)(2020,6.734)(2021,6.751)(2022,6.760)(2023,6.643)(2024,6.725)
+};
+\addlegendentry{Baseline (GPCP)}
+\addplot[OIgreen, thick, dashed, mark=none] coordinates {
+(1981,6.820)(1982,6.771)(1983,6.912)(1984,6.611)(1985,6.554)(1986,6.831)(1987,6.956)(1988,6.730)(1989,6.471)(1990,7.086)(1991,7.007)(1992,6.597)(1993,6.540)(1994,6.413)(1995,6.618)(1996,6.600)(1997,6.715)(1998,6.817)(1999,6.453)(2000,6.636)(2001,6.994)(2002,6.853)(2003,6.705)(2004,6.453)(2005,6.573)(2006,6.564)(2007,6.647)(2008,6.828)(2009,6.839)(2010,6.929)(2011,6.661)(2012,6.893)(2013,6.915)(2014,6.810)(2015,6.804)(2016,6.667)(2017,6.279)(2018,6.601)(2019,6.779)(2020,6.718)(2021,6.629)(2022,6.824)(2023,6.787)(2024,6.915)
+};
+\addlegendentry{ENSO-orthogonalized}
+\addplot[OIorange, thick, dotted, mark=none] coordinates {
+(1981,6.806)(1982,6.758)(1983,6.806)(1984,6.783)(1985,6.614)(1986,6.673)(1987,6.777)(1988,6.735)(1989,6.702)(1990,6.856)(1991,6.824)(1992,6.616)(1993,6.665)(1994,6.536)(1995,6.671)(1996,6.689)(1997,6.665)(1998,6.694)(1999,6.687)(2000,6.601)(2001,6.703)(2002,6.647)(2003,6.622)(2004,6.577)(2005,6.613)(2006,6.646)(2007,6.642)(2008,6.835)(2009,6.697)(2010,6.749)(2011,6.714)(2012,6.779)(2013,6.717)(2014,6.767)(2015,6.724)(2016,6.684)(2017,6.592)(2018,6.666)(2019,6.726)(2020,6.711)(2021,6.727)(2022,6.736)(2023,6.620)(2024,6.701)
+};
+\addlegendentry{Irrigation-adjusted}
+\addplot[OIgray, thick, dashdotted, mark=none] coordinates {
+(1981,6.837)(1982,6.814)(1983,6.858)(1984,6.836)(1985,6.679)(1986,6.728)(1987,6.836)(1988,6.784)(1989,6.750)(1990,6.913)(1991,6.868)(1992,6.683)(1993,6.716)(1994,6.589)(1995,6.727)(1996,6.734)(1997,6.720)(1998,6.756)(1999,6.739)(2000,6.659)(2001,6.761)(2002,6.718)(2003,6.696)(2004,6.645)(2005,6.665)(2006,6.715)(2007,6.690)(2008,6.897)(2009,6.762)(2010,6.787)(2011,6.764)(2012,6.827)(2013,6.783)(2014,6.813)(2015,6.772)(2016,6.733)(2017,6.633)(2018,6.718)(2019,6.785)(2020,6.762)(2021,6.765)(2022,6.774)(2023,6.672)(2024,6.748)
+};
+\addlegendentry{Neighbor rainfall}
+
+\nextgroupplot[
+    ylabel={Difference in log rainfall}, ymin=-0.4, ymax=0.32,
+    title={(b) Deviation from Baseline},
+    legend pos=north east, legend style={font=\tiny, draw=none, fill=none, row sep=-2pt},
+]
+\addplot[OIblack, thick] coordinates {(1980,0)(2025,0)};
+\addlegendentry{Baseline}
+\addplot[OIgreen, thick, dashed, mark=none] coordinates {
+(1981,-0.011)(1982,-0.012)(1983,0.081)(1984,-0.197)(1985,-0.084)(1986,0.133)(1987,0.155)(1988,-0.030)(1989,-0.256)(1990,0.206)(1991,0.159)(1992,-0.043)(1993,-0.150)(1994,-0.148)(1995,-0.078)(1996,-0.114)(1997,0.025)(1998,0.098)(1999,-0.258)(2000,0.011)(2001,0.267)(2002,0.182)(2003,0.059)(2004,-0.148)(2005,-0.064)(2006,-0.107)(2007,-0.018)(2008,-0.031)(2009,0.118)(2010,0.157)(2011,-0.077)(2012,0.090)(2013,0.174)(2014,0.018)(2015,0.056)(2016,-0.041)(2017,-0.335)(2018,-0.089)(2019,0.030)(2020,-0.016)(2021,-0.122)(2022,0.064)(2023,0.144)(2024,0.191)
+};
+\addlegendentry{ENSO-orthogonalized}
+\addplot[OIorange, thick, dotted, mark=none] coordinates {
+(1981,-0.025)(1982,-0.025)(1983,-0.025)(1984,-0.025)(1985,-0.024)(1986,-0.025)(1987,-0.025)(1988,-0.024)(1989,-0.025)(1990,-0.025)(1991,-0.024)(1992,-0.024)(1993,-0.024)(1994,-0.024)(1995,-0.024)(1996,-0.024)(1997,-0.025)(1998,-0.025)(1999,-0.025)(2000,-0.024)(2001,-0.024)(2002,-0.025)(2003,-0.024)(2004,-0.024)(2005,-0.024)(2006,-0.024)(2007,-0.024)(2008,-0.024)(2009,-0.024)(2010,-0.024)(2011,-0.024)(2012,-0.024)(2013,-0.024)(2014,-0.024)(2015,-0.024)(2016,-0.024)(2017,-0.023)(2018,-0.023)(2019,-0.024)(2020,-0.024)(2021,-0.024)(2022,-0.024)(2023,-0.024)(2024,-0.024)
+};
+\addlegendentry{Irrigation-adjusted}
+\addplot[OIgray, thick, dashdotted, mark=none] coordinates {
+(1981,0.006)(1982,0.032)(1983,0.027)(1984,0.029)(1985,0.040)(1986,0.030)(1987,0.035)(1988,0.024)(1989,0.023)(1990,0.032)(1991,0.020)(1992,0.043)(1993,0.026)(1994,0.028)(1995,0.031)(1996,0.021)(1997,0.030)(1998,0.037)(1999,0.028)(2000,0.034)(2001,0.034)(2002,0.046)(2003,0.049)(2004,0.044)(2005,0.028)(2006,0.044)(2007,0.024)(2008,0.037)(2009,0.042)(2010,0.015)(2011,0.026)(2012,0.024)(2013,0.042)(2014,0.021)(2015,0.024)(2016,0.025)(2017,0.019)(2018,0.028)(2019,0.035)(2020,0.027)(2021,0.014)(2022,0.014)(2023,0.028)(2024,0.024)
+};
+\addlegendentry{Neighbor rainfall}
+
+\end{groupplot}
+\end{tikzpicture}
 \caption{Rainfall Instrument Time Series, 1981--2024}
 \label{fig:D2}
 \begin{minipage}{0.95\textwidth}
@@ -1137,7 +1331,7 @@ $N$ (first stage)           & 961             & 818          & 1{,}779 \\
 
 \section{Mechanism Analysis\label{Appendix_E}}
 
-Table A-8 shows that the direct, reduced-form relationship between rainfall and democratic transitions is the one result in this paper that \emph{strengthens} under extension, from $-0.125^{**}$ to $-0.142^{***}$, even as the 2SLS income-shock channel weakens. This appendix asks what is driving that relationship: which country-years account for it, whether it survives excluding any single country, whether it operates through income at all, and which of several candidate real-economy channels can account for it.
+Table A-8 shows that one relationship in this paper strengthens under extension rather than weakening: the direct, reduced-form effect of rainfall on democratic transitions. The coefficient rises from $-0.125^{**}$ to $-0.142^{***}$, even as the 2SLS income-shock channel weakens over the same period. This appendix asks what is driving that relationship: which country-years account for it, whether it survives excluding any single country, whether it operates through income at all, and which of several candidate real-economy channels can account for it.
 
 \subsection*{Appendix E.1\quad Democratic Transition Events}
 
