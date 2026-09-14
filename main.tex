@@ -1211,7 +1211,7 @@ Baseline + Irrigation-adjusted & 2.071 (0.1501) & $-$2.847 \\
 \nextgroupplot[
     xbar, bar width=10pt,
     symbolic y coords={Neighbor,Irrigation-adj.,ENSO-orthog.},
-    ytick=data, y tick label style={font=\scriptsize},
+    ytick={Neighbor,Irrigation-adj.,ENSO-orthog.}, y tick label style={font=\scriptsize},
     enlarge y limits={abs=0.6cm},
     xlabel={Incremental $F$-statistic (conditional on baseline)}, xmin=0, xmax=13,
     title={(c) Incremental Relevance Test},
@@ -1225,7 +1225,7 @@ Baseline + Irrigation-adjusted & 2.071 (0.1501) & $-$2.847 \\
 \nextgroupplot[
     xbar, bar width=14pt,
     symbolic y coords={Base + Irrig.,Base + ENSO},
-    ytick=data, y tick label style={font=\scriptsize},
+    ytick={Base + Irrig.,Base + ENSO}, y tick label style={font=\scriptsize},
     enlarge y limits={abs=0.9cm},
     xlabel={$p$-value (H0: both instruments exogenous, df = 1)}, xmin=0, xmax=0.75,
     title={(d) Sargan--Hansen $J$-Test},
