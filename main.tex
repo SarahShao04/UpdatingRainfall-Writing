@@ -939,7 +939,7 @@ Extreme rainfall dummy, p20/p80 (\texttt{rain\_extreme\_l2}) & 0.65 & 873 & 0.08
 
 \subsection*{Appendix D.4\quad Structural Break in the First Stage}
 
-We test for a break in the rainfall$\to$GDP first stage using both a Chow test at the a priori 2004 splice date and an Andrews \citep{andrews1993tests} sup-Wald test that estimates the breakpoint from the data, searching over 1990--2015.
+We test for a break in the rainfall$\to$GDP first stage two ways. A Chow test checks the a priori 2004 splice date, while an Andrews \citep{andrews1993tests} sup-Wald test estimates the breakpoint directly from the data, searching over 1990--2015.
 
 \begin{table}[H]
 \centering
@@ -982,7 +982,7 @@ Candidate break year & Pre-break coef.\ & Post-break coef.\ & Wald $t$ ($p$) \\
 
 \subsection*{Appendix D.5\quad Is the Break a Vintage-Splicing Artifact?}
 
-Both real GDP per capita and rainfall are spliced across two data vintages at the panel's 2004/2005 boundary (Appendix B.4), raising the concern that the 2007 break identified above could be a statistical artifact of the splice rather than a real economic phenomenon. We address this directly by rebuilding each series from a single vintage spanning the entire 1981--2024 period --- PWT 11.0 throughout for GDP, and GPCP v2.3 throughout for rainfall --- and re-running both the Chow and Andrews tests on every combination of spliced/single-vintage series.
+Both real GDP per capita and rainfall are spliced across two data vintages at the panel's 2004/2005 boundary (Appendix B.4). This raises a natural concern: the 2007 break identified above could be a statistical artifact of the splice rather than a real economic phenomenon. We test this directly, and each series is rebuilt from a single vintage spanning the entire 1981--2024 period: PWT 11.0 throughout for GDP, and GPCP v2.3 throughout for rainfall. Both the Chow and Andrews tests are then re-run on every combination of spliced and single-vintage series.
 
 \begin{table}[H]
 \centering
@@ -1010,7 +1010,7 @@ Both single-vintage (no splice anywhere)   & 2007 & 1.774 & 0.0761* \\
 
 \subsection*{Appendix D.6\quad Agricultural Share of GDP and First-Stage Strength}
 
-The rainfall$\to$GDP first stage is meant to capture rainfall's effect on economies with a substantial agricultural sector. We test whether the post-2004 collapse in first-stage strength (Appendix D.4) is concentrated in economies that industrialized fastest, by splitting the sample at the median 1981--2004 agricultural share of GDP (27.6\%) into 20 high-agriculture and 20 low-agriculture countries.
+The rainfall$\to$GDP first stage is meant to capture rainfall's effect on economies with a substantial agricultural sector. We test whether the post-2004 collapse in first-stage strength (Appendix D.4) is concentrated in economies that industrialized fastest. Then, we split the sample at the median 1981--2004 agricultural share of GDP (27.6\%) into 20 high-agriculture and 20 low-agriculture countries.
 
 \begin{table}[H]
 \centering
